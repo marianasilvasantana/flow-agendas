@@ -1,0 +1,310 @@
+/* CONFIGURAÇÕES GERAIS E PALETA DE CORES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #FAF6EE; /* Tom de fundo creme claro da imagem */
+    color: #1A1A1A;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ESTILIZAÇÃO DA BARRA LATERAL */
+.sidebar {
+    width: 260px;
+    background-color: #121214; /* Grafite escuro */
+    color: #AEAEB2;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.logo {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logo .dot {
+    color: #E25C84; /* Detalhe rosa */
+    font-size: 14px;
+}
+
+.menu-group {
+    margin-bottom: 25px;
+}
+
+.menu-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #636366;
+    margin-bottom: 12px;
+    padding-left: 10px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #AEAEB2;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover, .menu-item.active {
+    background-color: #242428;
+    color: #FFFFFF;
+}
+
+.menu-item.active i {
+    color: #E25C84;
+}
+
+.logout-btn {
+    margin-top: auto;
+    color: #AEAEB2;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    font-size: 14px;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+
+/* BARRA DE PESQUISA DO TOPO */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 8px 15px;
+    border-radius: 30px;
+    width: 450px;
+    border: 1px solid #E5E5EA;
+}
+
+.search-icon {
+    color: #AEAEB2;
+    margin-right: 10px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+}
+
+.search-tag {
+    background-color: #F2F2F7;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin-left: 5px;
+    color: #636366;
+}
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-btn {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #E5E5EA;
+    cursor: pointer;
+}
+
+/* WELCOME SECTION */
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.welcome-section h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-add {
+    background-color: #121214;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-icon {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5EA;
+    padding: 10px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* FILTROS DE DATA */
+.date-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.btn-date-range {
+    background-color: #121214;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.view-switch {
+    background-color: #E5E5EA;
+    padding: 4px;
+    border-radius: 20px;
+    display: flex;
+}
+
+.view-switch button {
+    border: none;
+    background: none;
+    padding: 6px 16px;
+    border-radius: 15px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.view-switch button.active {
+    background-color: #FFFFFF;
+    font-weight: 500;
+}
+
+/* GRADE DO CALENDÁRIO */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: 60px repeat(7, 1fr);
+    background-color: transparent;
+    gap: 10px;
+}
+
+.day-header {
+    text-align: center;
+    font-size: 11px;
+    color: #8E8E93;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-bottom: 10px;
+}
+
+.day-header span {
+    font-size: 14px;
+    color: #1A1A1A;
+}
+
+.day-header.font-dark span.badge-dark {
+    background-color: #121214;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.time-col {
+    font-size: 12px;
+    color: #AEAEB2;
+    text-align: right;
+    padding-right: 10px;
+    margin-top: 5px;
+}
+
+.calendar-day-col {
+    min-height: 150px;
+}
+
+/* CARDS DE EVENTOS */
+.card {
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.card.purple { border-left: 4px solid #AF52DE; }
+.card.gray { background-color: #F2F2F7; }
+.card.yellow { background-color: #FFE6A3; }
+.card.border-pink { border: 2px solid #FFD6E8; }
+
+.card-tag {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.card-time {
+    font-size: 11px;
+    color: #8E8E93;
+}
+
+.card-btn-join {
+    background-color: #AEAEB2;
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.status-badge-pink {
+    background-color: #FFD6E8;
+    color: #E25C84;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 10px;
+    align-self: flex-start;
+}
