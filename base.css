@@ -308,3 +308,17 @@ body {
     border-radius: 10px;
     align-self: flex-start;
 }
+
+/* REGRA PARA ALTERNÂNCIA DE ABAS */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Ajuste nos links da barra lateral */
+.menu-item, .logout-btn {
+    cursor: pointer;
+}

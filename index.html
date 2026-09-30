@@ -5,31 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flow Agendas</title>
     <link rel="stylesheet" href="base.css">
-    <!-- Ícones simples via FontAwesome para aproximar do design original -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <script src="script.js"></script>
+    <!-- Ícones via FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <!-- BARRA LATERAL (SIDEBAR) -->
     <aside class="sidebar">
-        <div class="logo">flow agendas <span class="dot"></span></div>
+        <div class="logo">flow agendas <span class="dot">●</span></div>
         
         <div class="menu-group">
             <p class="menu-title">menu</p>
-            <a href="#" class="menu-item"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-            <a href="#" class="menu-item active"><i class="fa-regular fa-calendar-days"></i> minha genda</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-user-group"></i> bem-estar</a>
-            <a href="#" class="menu-item"><i class="fa-solid fa-chart-pie"></i> configurações</a>
-            <a href="#" class="menu-item"><i class="fa-regular fa-bookmark"></i> chat bot</a>
+            <a href="#" class="menu-item" data-tab="dashboard"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+            <a href="#" class="menu-item active" data-tab="minha-agenda"><i class="fa-regular fa-calendar-days"></i> minha genda</a>
+            <a href="#" class="menu-item" data-tab="bem-estar"><i class="fa-solid fa-heart-pulse"></i> bem-estar</a>
+            <a href="#" class="menu-item" data-tab="configuracoes"><i class="fa-solid fa-gear"></i> configurações</a>
+            <a href="#" class="menu-item" data-tab="chatbot"><i class="fa-solid fa-robot"></i> chat bot</a>
         </div>
 
-
-        <a href="#" class="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> login</a>
+        <a href="#" class="logout-btn" data-tab="login"><i class="fa-solid fa-arrow-right-from-bracket"></i> login</a>
     </aside>
 
     <!-- CONTEÚDO PRINCIPAL (MAIN CONTENT) -->
     <main class="main-content">
-        <!-- BARRA DO TOPO (HEADER) -->
+        <!-- BARRA DO TOPO (HEADER FIXO) -->
         <header class="top-header">
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -43,71 +43,108 @@
             </div>
         </header>
 
-        <!-- SUB-HEADER DE SAUDAÇÃO -->
-        <section class="welcome-section">
-            <h1>olá, sou a agente do flow agentas, me chamo Aya </h1>
-            <div class="action-buttons">
-                <button class="btn-add"><i class="fa-solid fa-plus"></i> adicionar evento</button>
+        <!-- ABA 1: DASHBOARD -->
+        <section id="dashboard" class="tab-content">
+            <div class="welcome-section">
+                <h1>Dashboard</h1>
             </div>
+            <p>Visão geral de atividades e estatísticas.</p>
         </section>
 
-        <!-- FILTROS DE DATA -->
-        <section class="date-filters">
-            <button class="btn-date-range">setembro 27/09 - 03/10 <i class="fa-solid fa-chevron-down"></i></button>
-            <div class="view-switch">
-                <button>dia</button>
-                <button class="active">semana</button>
-                <button>mês</button>
-            </div>
+        <!-- ABA 2: MINHA AGENDA (SUA TELA ATUAL) -->
+        <section id="minha-agenda" class="tab-content active">
+            <section class="welcome-section">
+                <h1>olá, sou a agente do flow agentas, me chamo Aya </h1>
+                <div class="action-buttons">
+                    <button class="btn-add"><i class="fa-solid fa-plus"></i> adicionar evento</button>
+                </div>
+            </section>
+
+            <section class="date-filters">
+                <button class="btn-date-range">setembro 27/09 - 03/10 <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="view-switch">
+                    <button>dia</button>
+                    <button class="active">semana</button>
+                    <button>mês</button>
+                </div>
+            </section>
+
+            <section class="calendar-grid">
+                <div class="grid-header-blank"></div>
+                <div class="day-header">domingo <span>27/09</span></div>
+                <div class="day-header">segunda <span>28/09</span></div>
+                <div class="day-header">terça <span>29/09</span></div>
+                <div class="day-header">quarta <span>30/09</span></div>
+                <div class="day-header">quinta <span>01/10</span></div>
+                <div class="day-header">sexta <span>02/10</span></div>
+                <div class="day-header">sábado <span>03/10</span></div>
+            
+                <div class="time-col">06:00</div>
+                <div class="calendar-day-col">
+                    <div class="card purple">
+                        <span class="card-tag">aula</span>
+                        <span class="card-time">07:10 - 12:30</span>
+                    </div>
+                </div>
+                <div class="calendar-day-col">
+                    <div class="card gray">
+                        <span class="card-tag">aula</span>
+                        <span class="card-time">07:10 - 12:30</span>
+                        <span class="card-tag">volei</span>
+                        <span class="card-time">13:30 - 16:00</span>
+                        <span class="status-badge-pink">em andamendo...</span>
+                    </div>
+                </div>
+                <div class="calendar-day-col"></div>
+                <div class="calendar-day-col">
+                    <div class="card gray border-pink">
+                        <span class="card-tag">aula</span>
+                        <span class="card-time">07:10 - 12:30</span>
+                        <span class="card-tag">projeto integrador</span>
+                        <span class="card-time">14:00 - 16:00</span>
+                    </div>
+                </div>
+                <div class="calendar-day-col">
+                    <div class="card yellow">
+                        <span class="card-tag">aula</span>
+                        <span class="card-time">07:10 - 12:30</span>
+                    </div>
+                </div>
+                <div class="calendar-day-col"></div>
+                <div class="calendar-day-col"></div>
+            </section>
         </section>
 
-        <!-- GRADE DO CALENDÁRIO WEEKLY -->
-        <section class="calendar-grid">
-            <!-- Cabeçalho dos Dias -->
-            <div class="grid-header-blank"></div>
-            <div class="day-header">domingo <span>27/09</span></div>
-            <div class="day-header">segunda <span>28/09</span></div>
-            <div class="day-header">terça <span>29/09</span></div>
-            <div class="day-header">quarta <span>30/09</span></div>
-            <div class="day-header">quinta <span>01/10</span></div>
-            <div class="day-header">sexta <span>02/10</span></div>
-            <div class="day-header">sábado <span>03/10</span></div>
-          
+        <!-- ABA 3: BEM-ESTAR -->
+        <section id="bem-estar" class="tab-content">
+            <div class="welcome-section">
+                <h1>Bem-estar</h1>
+            </div>
+            <p>Acompanhe seus hábitos de saúde, água e descanso.</p>
+        </section>
 
-            <!-- Horários e Cards Simulado (Exemplo simplificado de colunas) -->
-            <div class="time-col">06:00</div>
-            <div class="calendar-day-col">
-                <div class="card purple">
-                    <span class="card-tag">aula</span>
-                    <span class="card-time">07:10 - 12:30</span>
-                </div>
+        <!-- ABA 4: CONFIGURAÇÕES -->
+        <section id="configuracoes" class="tab-content">
+            <div class="welcome-section">
+                <h1>Configurações</h1>
             </div>
-            <div class="calendar-day-col">
-                <div class="card gray">
-                     <span class="card-tag">aula</span>
-                    <span class="card-time">07:10 - 12:30</span>
-                    <span class="card-tag">volei</span>13:30 - 16:00</span>
-                     <span class="status-badge-pink">em andamendo...</span>
+            <p>Gerencie as preferências da sua conta.</p>
+        </section>
 
-                </div>
+        <!-- ABA 5: CHAT BOT -->
+        <section id="chatbot" class="tab-content">
+            <div class="welcome-section">
+                <h1>Chat Bot - Aya</h1>
             </div>
-            <div class="calendar-day-col"></div>
-            <div class="calendar-day-col">
-                <div class="card gray border-pink">
-                     <span class="card-tag">aula</span>
-                    <span class="card-time">07:10 - 12:30</span>
-                    <span class="card-tag">projeto integrador</span>
-                    <span class="card-time">14:00 - 16:00</span>
-                </div>
+            <p>Converse com sua assistente virtual.</p>
+        </section>
+
+        <!-- ABA 6: LOGIN -->
+        <section id="login" class="tab-content">
+            <div class="welcome-section">
+                <h1>Login</h1>
             </div>
-            <div class="calendar-day-col">
-                <div class="card yellow">
-                     <span class="card-tag">aula</span>
-                    <span class="card-time">07:10 - 12:30</span>
-                </div>
-            </div>
-            <div class="calendar-day-col"></div>
-            <div class="calendar-day-col"></div>
+            <p>Área de autenticação do usuário.</p>
         </section>
     </main>
 
