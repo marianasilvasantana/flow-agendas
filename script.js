@@ -23,3 +23,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+//bem-estar //
+let totalwaterML = 1200;
+const goalwaterML = 2000;
+
+function addWater(amount) {
+    totalWaterMl += amount;
+    let percentage = Math.min((totalWaterMl / goalWaterMl) * 100, 100);
+    
+    // Atualiza o texto do L / ml
+    const waterText = document.getElementById('water-text');
+    if (waterText) {
+        waterText.innerText = (totalWaterMl / 1000).toFixed(1) + 'L';
+    }
+
+    // Atualiza a cor do círculo
+    const waterCard = waterText.closest('.wellness-card');
+    if (waterCard) {
+        const circle = waterCard.querySelector('.progress-circle');
+        circle.style.setProperty('--percent', percentage);
+    }
+}

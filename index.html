@@ -17,7 +17,7 @@
         
         <div class="menu-group">
             <p class="menu-title">menu</p>
-            <a href="#" class="menu-item" data-tab="dashboard"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+            <a href="#" class="menu-item" data-tab="estudo"><i class="fa-solid fa-table-columns"></i> estudo</a>
             <a href="#" class="menu-item active" data-tab="minha-agenda"><i class="fa-regular fa-calendar-days"></i> minha genda</a>
             <a href="#" class="menu-item" data-tab="bem-estar"><i class="fa-solid fa-heart-pulse"></i> bem-estar</a>
             <a href="#" class="menu-item" data-tab="configuracoes"><i class="fa-solid fa-gear"></i> configurações</a>
@@ -43,85 +43,128 @@
             </div>
         </header>
 
-        <!-- ABA 1: DASHBOARD -->
-        <section id="dashboard" class="tab-content">
+        <!-- 2. CABEÇALHO DE BOAS-VINDAS (Fica fixo para todas as abas) -->
+    <section class="welcome-section">
+        <div class="action-buttons">
+            <button class="btn-add"><i class="fa-solid fa-plus"></i> adicionar evento</button>
+        </div>
+    </section>
+
+        <!-- ABA 1: estudo -->
+        <section id="estudo" class="tab-content">
             <div class="welcome-section">
-                <h1>Dashboard</h1>
+                <h1>estudo</h1>
             </div>
             <p>Visão geral de atividades e estatísticas.</p>
         </section>
 
-        <!-- ABA 2: MINHA AGENDA (SUA TELA ATUAL) -->
-        <section id="minha-agenda" class="tab-content active">
-            <section class="welcome-section">
-                <h1>olá, sou a agente do flow agentas, me chamo Aya </h1>
-                <div class="action-buttons">
-                    <button class="btn-add"><i class="fa-solid fa-plus"></i> adicionar evento</button>
-                </div>
-            </section>
+        <!-- ABA 2: MINHA AGENDA -->
+<section id="minha-agenda" class="tab-content active">
+    
+ 
 
-            <section class="date-filters">
-                <button class="btn-date-range">setembro 27/09 - 03/10 <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="view-switch">
-                    <button>dia</button>
-                    <button class="active">semana</button>
-                    <button>mês</button>
-                </div>
-            </section>
+    <!-- Filtros de data -->
+    <section class="date-filters">
+        <button class="btn-date-range">setembro 27/09 - 03/10 <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="view-switch">
+            <button>dia</button>
+            <button class="active">semana</button>
+            <button>mês</button>
+        </div>
+    </section>
 
-            <section class="calendar-grid">
-                <div class="grid-header-blank"></div>
-                <div class="day-header">domingo <span>27/09</span></div>
-                <div class="day-header">segunda <span>28/09</span></div>
-                <div class="day-header">terça <span>29/09</span></div>
-                <div class="day-header">quarta <span>30/09</span></div>
-                <div class="day-header">quinta <span>01/10</span></div>
-                <div class="day-header">sexta <span>02/10</span></div>
-                <div class="day-header">sábado <span>03/10</span></div>
+    <!-- Grelha do calendário -->
+    <section class="calendar-grid">
+        <div class="grid-header-blank"></div>
+        <div class="day-header">domingo <span>27/09</span></div>
+        <div class="day-header">segunda <span>28/09</span></div>
+        <div class="day-header">terça <span>29/09</span></div>
+        <div class="day-header">quarta <span>30/09</span></div>
+        <div class="day-header">quinta <span>01/10</span></div>
+        <div class="day-header">sexta <span>02/10</span></div>
+        <div class="day-header">sábado <span>03/10</span></div>
+
+        <div class="time-col">06:00</div>
+        <div class="calendar-day-col">
+            <div class="card purple">
+                <span class="card-tag">aula</span>
+                <span class="card-time">07:10 - 12:30</span>
+            </div>
+        </div>
+        <div class="calendar-day-col">
+            <div class="card gray">
+                <span class="card-tag">aula</span>
+                <span class="card-time">07:10 - 12:30</span>
+                <span class="card-tag">volei</span>
+                <span class="card-time">13:30 - 16:00</span>
+                <span class="status-badge-pink">em andamento...</span>
+            </div>
+        </div>
+        <div class="calendar-day-col"></div>
+        <div class="calendar-day-col">
+            <div class="card gray border-pink">
+                <span class="card-tag">aula</span>
+                <span class="card-time">07:10 - 12:30</span>
+                <span class="card-tag">projeto integrador</span>
+                <span class="card-time">14:00 - 16:00</span>
+            </div>
+        </div>
+        <div class="calendar-day-col">
+            <div class="card yellow">
+                <span class="card-tag">aula</span>
+                <span class="card-time">07:10 - 12:30</span>
+            </div>
+        </div>
+        <div class="calendar-day-col"></div>
+        <div class="calendar-day-col"></div>
+    </section>
+
+</section>
             
-                <div class="time-col">06:00</div>
-                <div class="calendar-day-col">
-                    <div class="card purple">
-                        <span class="card-tag">aula</span>
-                        <span class="card-time">07:10 - 12:30</span>
-                    </div>
-                </div>
-                <div class="calendar-day-col">
-                    <div class="card gray">
-                        <span class="card-tag">aula</span>
-                        <span class="card-time">07:10 - 12:30</span>
-                        <span class="card-tag">volei</span>
-                        <span class="card-time">13:30 - 16:00</span>
-                        <span class="status-badge-pink">em andamendo...</span>
-                    </div>
-                </div>
-                <div class="calendar-day-col"></div>
-                <div class="calendar-day-col">
-                    <div class="card gray border-pink">
-                        <span class="card-tag">aula</span>
-                        <span class="card-time">07:10 - 12:30</span>
-                        <span class="card-tag">projeto integrador</span>
-                        <span class="card-time">14:00 - 16:00</span>
-                    </div>
-                </div>
-                <div class="calendar-day-col">
-                    <div class="card yellow">
-                        <span class="card-tag">aula</span>
-                        <span class="card-time">07:10 - 12:30</span>
-                    </div>
-                </div>
-                <div class="calendar-day-col"></div>
-                <div class="calendar-day-col"></div>
-            </section>
-        </section>
 
         <!-- ABA 3: BEM-ESTAR -->
-        <section id="bem-estar" class="tab-content">
-            <div class="welcome-section">
-                <h1>Bem-estar</h1>
+<section id="bem-estar" class="tab-content">
+    <div class="wellness-grid">
+        
+        <!-- CARD 1: HIDRATAÇÃO -->
+        <div class="wellness-card">
+            <span class="wellness-title">Hidratação</span>
+            <div class="progress-circle" style="--percent: 60; --color: #E25C84;">
+                <span class="progress-value" id="water-text">1.2L</span>
             </div>
-            <p>Acompanhe seus hábitos de saúde, água e descanso.</p>
-        </section>
+            <span class="wellness-sub">Meta: 2.0L</span>
+            
+            <!-- Botão da imagem -->
+            <button class="btn-pill" onclick="addWater(250)">adicionar 250 ml</button>
+        </div>
+
+        <!-- CARD 2: SONO -->
+        <div class="wellness-card">
+            <span class="wellness-title">Sono</span>
+            <div class="progress-circle" style="--percent: 90; --color: #4CD964;">
+                <span class="progress-value">7h 12m</span>
+            </div>
+            
+            <!-- Botão com 2 linhas da imagem -->
+            <button class="btn-pill btn-pill-double" onclick="registerSleep()">
+                hora que dormiu:<br>hora que acordou:
+            </button>
+        </div>
+
+        <!-- CARD 3: EXERCÍCIOS -->
+        <div class="wellness-card">
+            <span class="wellness-title">Exercícios</span>
+            <div class="progress-circle" style="--percent: 75; --color: #FFCC00;">
+                <span class="progress-value">45 min</span>
+            </div>
+            <span class="wellness-sub">Meta: 60 min</span>
+            
+            <!-- Botão da imagem -->
+            <button class="btn-pill" onclick="registerWorkout()">registrar treino</button>
+        </div>
+
+    </div>
+</section>
 
         <!-- ABA 4: CONFIGURAÇÕES -->
         <section id="configuracoes" class="tab-content">
@@ -136,16 +179,64 @@
             <div class="welcome-section">
                 <h1>Chat Bot - Aya</h1>
             </div>
-            <p>Converse com sua assistente virtual.</p>
+            <p> olá, sou a agente do flow agentas, me chamo Aya</p>
         </section>
 
         <!-- ABA 6: LOGIN -->
         <section id="login" class="tab-content">
-            <div class="welcome-section">
-                <h1>Login</h1>
+            <div class="split-login-wrapper">
+                <div class="split-login-wrapper">
+                    <!--lado esquerto-->
+                    <div class="login-sideba">
+                    <div class="sidebar-pattern"></div>
+                    <div class="toggle-tabs">
+                         <button class="toggle-btn active">LOGIN</button>
+                    <button class="toggle-btn transparent">SIGN IN</button>
+                </div>
             </div>
-            <p>Área de autenticação do usuário.</p>
-        </section>
+
+            <!-- LADO DIREITO: Form de Entrada -->
+            <div class="login-main">
+                <!-- Ícone circular do topo -->
+                <div class="user-avatar-badge">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+
+                <h2 class="login-title">LOGIN</h2>
+
+                <form class="clean-form" onsubmit="event.preventDefault();">
+                    <!-- Campo Email com linha inferior -->
+                    <div class="line-input-group">
+                        <i class="fa-regular fa-user input-icon"></i>
+                        <input type="email" placeholder="Email" required>
+                    </div>
+
+                    <!-- Campo Senha com linha inferior -->
+                    <div class="line-input-group">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="form-sub-row">
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                        <button type="submit" class="btn-login-pink">LOGIN</button>
+                    </div>
+                </form>
+
+                <!-- Rodapé Social -->
+                <div class="social-login-footer">
+                    <span>Or Login With</span>
+                    <div class="social-buttons">
+                        <button class="btn-social"><i class="fa-brands fa-google google-color"></i> Google</button>
+                        <button class="btn-social"><i class="fa-brands fa-facebook facebook-color"></i> Facebook</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
     </main>
 
 </body>
