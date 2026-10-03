@@ -45,3 +45,16 @@ function addWater(amount) {
         circle.style.setProperty('--percent', percentage);
     }
 }
+
+function selectSubject(name, examTitle, examContent) {
+    // 1. Atualiza o título e a notinha no painel direito
+    document.getElementById('selected-subject-title').innerText = name;
+    document.getElementById('exam-title').innerText = examTitle;
+    document.getElementById('exam-content').innerText = examContent;
+
+    // 2. Destaca o card clicado
+    const cards = document.querySelectorAll('.course-card');
+    cards.forEach(card => card.classList.remove('active'));
+    
+    event.currentTarget.classList.add('active');
+}

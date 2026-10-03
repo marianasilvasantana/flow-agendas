@@ -52,13 +52,91 @@
 
         <!-- ABA 1: estudo -->
         <section id="estudo" class="tab-content">
-            <div class="welcome-section">
-                <h1>estudo</h1>
-            </div>
-            <p>Visão geral de atividades e estatísticas.</p>
-        </section>
+            <div class="studies-wraper">
+        <!-- painel da esquerda -->
+        <div class="courses-grid">
 
-        <!-- ABA 2: MINHA AGENDA -->
+            <div class="course-card active" onclick="selectSubject('ciências', 'recuperação', 'capítlo 1 a 4, tecido,ecosistema,mitose e meiose')">
+                <div class="course-info">
+                    <h3>Ciências</h3>
+                    <p>4 conteúdos</p>
+                    <span class="study-bade">2h estudando </span>
+                </div>
+                <div class="course-icon"><i class="fa-solid fa-flask"></i></div>
+            </div>
+
+            <div class="course-card active" onclick="selectSubject('historia', 'prova sobre a idade média ', 'capítlo 1 a 6, o periodo medieval')">
+                <div class="course-info">
+                    <h3>história
+                    </h3>
+                    <p>1 conteúdos</p>
+                    <span class="study-bade">1h estudando </span>
+                </div>
+                <div class="course-icon"><i class="fa-solid fa-flask"></i></div>
+            </div>
+
+            <div class="course-card active" onclick="selectSubject('computação', 'projto integrador', 'html, css e javaScript')">
+                <div class="course-info">
+                    <h3>computação</h3>
+                    <p>3 conteúdos</p>
+                    <span class="study-bade">1h e 30min estudando </span>
+                </div>
+                <div class="course-icon"><i class="fa-solid fa-flask"></i></div>
+            </div>
+        </div>           
+
+    <!--painel direito:detlhes da matéria + notinhas + ações -->
+    <div class="subject-detail-painel">
+
+        <div class="detail-header">
+            <h2 id="selcted-sbject-title">ciências</h2>
+
+            <!--botões de ações para anexos-->
+            <div class="subject-actions">
+                <button class="btn-study-action"><i class="fa-solid fa-plus"></i>adicionar</button>
+                <button class="btn-study-action btn-camera"><i class="fa-solid fa-camera"></i>tirar foto</button>
+            </div>
+
+            <!-- CARD ESTILO NOTINHA (CONTEÚDO DA PROVA) -->
+            <div class="exam-sticky-note">
+                <div class="note-header">
+                    <i class="fa-solid fa-note-sticky"></i>
+                    <span id="exam-title">Exame Trimestral</span>
+                </div>
+                <p id="exam-content">Capítulos 1 a 4: Células, Tecidos e Ecossistemas</p>
+            </div>
+
+            <!-- LISTA DE TÓPICOS / MÓDULOS -->
+            <div class="topic-list">
+                <h4>Sumário de Conteúdos</h4>
+                <div class="topic-item">
+                    <span class="topic-num">01</span>
+                    <div class="topic-text">
+                        <strong>Introdução às Células</strong>
+                        <small>Resumo e anotações</small>
+                    </div>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-num">02</span>
+                    <div class="topic-text">
+                        <strong>Estrutura Celular</strong>
+                        <small>Anexo: Fotos da Lousa (2)</small>
+                    </div>
+                </div>
+                <div class="topic-item">
+                    <span class="topic-num">03</span>
+                    <div class="topic-text">
+                        <strong>Sistemas e Ecossistemas</strong>
+                        <small>Exercícios resolvidos</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+                <!-- ABA 2: MINHA AGENDA -->
 <section id="minha-agenda" class="tab-content active">
     
  
@@ -186,58 +264,9 @@
         <section id="login" class="tab-content">
             <div class="split-login-wrapper">
                 <div class="split-login-wrapper">
-                    <!--lado esquerto-->
-                    <div class="login-sideba">
-                    <div class="sidebar-pattern"></div>
-                    <div class="toggle-tabs">
-                         <button class="toggle-btn active">LOGIN</button>
-                    <button class="toggle-btn transparent">SIGN IN</button>
-                </div>
-            </div>
-
-            <!-- LADO DIREITO: Form de Entrada -->
-            <div class="login-main">
-                <!-- Ícone circular do topo -->
-                <div class="user-avatar-badge">
-                    <i class="fa-regular fa-user"></i>
-                </div>
-
-                <h2 class="login-title">LOGIN</h2>
-
-                <form class="clean-form" onsubmit="event.preventDefault();">
-                    <!-- Campo Email com linha inferior -->
-                    <div class="line-input-group">
-                        <i class="fa-regular fa-user input-icon"></i>
-                        <input type="email" placeholder="Email" required>
-                    </div>
-
-                    <!-- Campo Senha com linha inferior -->
-                    <div class="line-input-group">
-                        <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" placeholder="Password" required>
-                    </div>
-
-                    <div class="form-sub-row">
-                        <a href="#" class="forgot-link">Forgot Password?</a>
-                        <button type="submit" class="btn-login-pink">LOGIN</button>
-                    </div>
-                </form>
-
-                <!-- Rodapé Social -->
-                <div class="social-login-footer">
-                    <span>Or Login With</span>
-                    <div class="social-buttons">
-                        <button class="btn-social"><i class="fa-brands fa-google google-color"></i> Google</button>
-                        <button class="btn-social"><i class="fa-brands fa-facebook facebook-color"></i> Facebook</button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</section>
     </main>
+
+
 
 </body>
 </html>

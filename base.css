@@ -419,196 +419,171 @@ body {
     line-height: 1.3;
  }
 
- /* --- TELA DE LOGIN ESTILO SPLIT CARD --- */
-.split-login-wrapper {
+/* --- LAYOUT DA ABA DE ESTUDOS --- */
+.studies-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 75vh;
-    padding: 20px;
+    gap: 24px;
+    margin-top: 15px;
 }
 
-.split-login-card {
-    display: flex;
-    width: 100%;
-    max-width: 820px;
-    background-color: #FFFFFF;
+/* Coluna da esquerda: Cards das Matérias */
+.courses-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.course-card {
+    background-color: #2d2733;
+    border: 1px solid #2D2733;
     border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* LADO ESQUERDO */
-.login-sidebar {
-    width: 38%;
-    background: linear-gradient(135deg, #2D2733 0%, #E25C84 100%);
-    position: relative;
+    padding: 20px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 0;
-}
-
-.sidebar-pattern {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 20px, transparent 20px, transparent 40px);
-}
-
-.toggle-tabs {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    z-index: 2;
-    right: -1px; /* Encosta no card branco */
-}
-
-.toggle-btn {
-    border: none;
-    padding: 10px 24px;
-    font-size: 13px;
-    font-weight: 700;
     cursor: pointer;
-    border-radius: 30px 0 0 30px;
-    color: #FFFFFF;
-    background: transparent;
     transition: all 0.2s ease;
 }
 
-.toggle-btn.active {
-    background-color: #FFFFFF;
-    color: #2D2733;
-    box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+.course-card:hover, .course-card.active {
+    border-color: #E25C84;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
-/* LADO DIREITO */
-.login-main {
-    width: 62%;
-    padding: 40px 50px 30px 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #FFFFFF;
+.course-info h3 {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 4px;
 }
 
-.user-avatar-badge {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #E25C84, #8E44AD);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
-    font-size: 28px;
-    box-shadow: 0 6px 15px rgba(226, 92, 132, 0.4);
-    margin-bottom: 12px;
+.course-info p {
+    color: #ffffff;
+    font-size: 12px;
+    margin-bottom: 10px;
 }
 
-.login-title {
+.study-badge {
+    background-color: #1C1821;
     color: #E25C84;
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 1px;
-    margin-bottom: 30px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
 }
 
-.clean-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-/* Input com linha por baixo */
-.line-input-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid #D1D1D6;
-    padding-bottom: 8px;
-}
-
-.input-icon {
-    color: #8E8E93;
-    font-size: 16px;
-}
-
-.line-input-group input {
-    border: none;
-    outline: none;
-    width: 100%;
-    font-size: 14px;
-    color: #2D2733;
-    background: transparent;
-}
-
-.line-input-group input::placeholder {
+.course-icon {
+    font-size: 28px;
     color: #AEAEB2;
 }
 
-.form-sub-row {
+/* Coluna da direita: Painel Detalhado */
+.subject-detail-panel {
+    width: 380px;
+    background-color: #2D2733;
+    border-radius: 24px;
+    padding: 24px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.forgot-link {
-    color: #E25C84;
-    font-size: 12px;
-    text-decoration: none;
+.detail-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.btn-login-pink {
-    background-color: #E25C84;
+.detail-header h2 {
     color: #FFFFFF;
-    border: none;
-    padding: 10px 32px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(226, 92, 132, 0.3);
-    transition: transform 0.1s ease;
+    font-size: 22px;
 }
 
-.btn-login-pink:hover {
-    transform: scale(1.03);
-}
-
-/* Rodapé com botão de redes sociais */
-.social-login-footer {
-    width: 100%;
-    margin-top: 35px;
-    padding-top: 15px;
-    border-top: 1px solid #F2F2F7;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #8E8E93;
-}
-
-.social-buttons {
+/* Botões Adicionar / Tirar Foto */
+.subject-actions {
     display: flex;
     gap: 10px;
 }
 
-.btn-social {
-    border: none;
-    background: #F2F2F7;
-    padding: 6px 14px;
-    border-radius: 8px;
+.btn-study-action {
+    flex: 1;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: 1px solid #3A3442;
+    border-radius: 50px;
+    padding: 10px 14px;
     font-size: 12px;
     font-weight: 600;
-    color: #2D2733;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    transition: background 0.2s;
 }
 
-.google-color { color: #EA4335; }
-.facebook-color { color: #1877F2; }
+.btn-study-action:hover {
+    background-color: #1A1A1A;
+}
+
+.btn-camera {
+    border-color: #E25C84;
+    color: #E25C84;
+}
+
+/* Notinha do Conteúdo da Prova */
+.exam-sticky-note {
+    background: linear-gradient(135deg, #FFF3B0 0%, #FFDF00 100%);
+    color: #2D2733;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.note-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.exam-sticky-note p {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Sumário/Lista de Tópicos */
+.topic-list h4 {
+    color: #AEAEB2;
+    font-size: 13px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.topic-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #3A3442;
+}
+
+.topic-num {
+    color: #E25C84;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.topic-text strong {
+    display: block;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.topic-text small {
+    color: #8E8E93;
+    font-size: 12px;
+}
