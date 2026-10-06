@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return JSON.stringify(readForm()) !== JSON.stringify({ ...saved, ...normalize(saved) });
     }
 
-    // Garante que o valor salvo tenha o mesmo formato que o formulário gera
     function normalize(values) {
         const out = {};
         Object.keys(values).forEach(key => {
@@ -197,13 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateAvatarInitial() {
-        // Só mostra a inicial se não houver foto escolhida
         if (avatar.style.backgroundImage) return;
         const nome = document.getElementById('set-nome').value.trim();
         avatar.textContent = nome ? nome[0].toUpperCase() : '?';
     }
 
-    // Troca de painel
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             navItems.forEach(i => i.classList.remove('active'));
@@ -213,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Detecta mudanças
     fields.forEach(field => {
         field.addEventListener('input', () => {
             updateAvatarInitial();
@@ -222,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         field.addEventListener('change', refreshStatus);
     });
 
-    // Salvar
     btnSave.addEventListener('click', () => {
         const values = readForm();
         try {
@@ -235,20 +230,17 @@ document.addEventListener('DOMContentLoaded', () => {
         refreshStatus();
     });
 
-    // Cancelar: volta ao último estado salvo
     btnCancel.addEventListener('click', () => {
         writeForm(saved);
         refreshStatus();
     });
 
-    // Restaurar padrões: preenche com os padrões, mas só vale depois de salvar
     btnRestore.addEventListener('click', () => {
         if (!confirm('Restaurar todas as configurações para o padrão?')) return;
         writeForm(DEFAULTS);
         refreshStatus();
     });
 
-    // Prévia da foto (só durante a visita)
     avatarInput.addEventListener('change', () => {
         const file = avatarInput.files[0];
         if (!file) return;
@@ -260,7 +252,93 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsDataURL(file);
     });
 
-    // Estado inicial
     writeForm(saved);
     refreshStatus();
+});
+
+/* ============================================
+   LÓGICA DO CHATBOT (AYA) & CRIAÇÃO DE EVENTOS
+   ============================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const chatInput = document.querySelector('.chat-input input');
+    const sendBtn = document.querySelector('.chat-send');
+    const chatBody = document.querySelector('.chat-body');
+    const chatChips = document.querySelectorAll('.chat-chip');
+
+    if (!chatInput || !sendBtn || !chatBody) return;
+
+    // Função para adicionar balão de mensagem na conversa
+    function adicionarBalao(texto, tipo) {
+        const welcomeBlock = chatBody.querySelector('.chat-welcome');
+        if (welcomeBlock) welcomeBlock.style.display = 'none';
+
+        const mensagemDiv = document.createElement('div');
+        mensagemDiv.className = `message ${tipo === 'usuario' ? 'user' : 'bot'}`;
+        mensagemDiv.textContent = texto;
+
+        chatBody.appendChild(mensagemDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Função para adicionar o card de evento na agenda
+    function adicionarEventoNaAgenda(titulo, data, hora) {
+        const calendarGrid = document.querySelector('.calendar-grid');
+        if (!calendarGrid) return;
+
+        const novoCard = document.createElement('div');
+        novoCard.className = 'card purple';
+        novoCard.innerHTML = `
+            <span class="card-tag">${titulo}</span>
+            <span class="card-time">${hora || 'Dia todo'} (${data || 'Em breve'})</span>
+        `;
+
+        const colunaDia = calendarGrid.querySelector('.calendar-day-col') || calendarGrid;
+        colunaDia.appendChild(novoCard);
+    }
+
+    // Função para enviar mensagem ao backend
+    async function enviarMensagem(texto) {
+        const mensagemUsuario = texto || chatInput.value.trim();
+        if (!mensagemUsuario) return;
+
+        adicionarBalao(mensagemUsuario, 'usuario');
+        if (!texto) chatInput.value = '';
+
+        try {
+            const resposta = await fetch('http://127.0.0.1:8000/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ texto: mensagemUsuario })
+            });
+
+            if (!resposta.ok) throw new Error('Erro na conexão');
+
+            const dados = await resposta.json();
+            
+            // Exibe a resposta de texto da Aya
+            adicionarBalao(dados.resposta, 'bot');
+
+            // Se a IA detetou intenção de evento, injeta na agenda!
+            if (dados.criar_evento) {
+                adicionarEventoNaAgenda(dados.titulo, dados.data, dados.hora);
+            }
+
+        } catch (erro) {
+            adicionarBalao('Desculpe, estou com dificuldades de conexão com o servidor.', 'bot');
+        }
+    }
+
+    sendBtn.addEventListener('click', () => enviarMensagem());
+
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            enviarMensagem();
+        }
+    });
+
+    chatChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            enviarMensagem(chip.textContent);
+        });
+    });
 });
