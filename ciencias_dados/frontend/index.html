@@ -47,6 +47,80 @@
             </div>
         </header>
 
+        <!-- ABA DE RESUMO (INTEGRAÇÃO COM O BACKEND/FASTAPI) -->
+        <section id="resumo" class="tab-content" aria-labelledby="titulo-indicadores" aria-busy="false">
+            <header class="cabecalho">
+                <div class="container">
+                    <span class="marca">Mercearia do João</span>
+                    <span class="subtitulo">Inteligência de dados</span>
+                </div>
+            </header>
+
+            <div class="titulo-pagina">
+                <p class="legenda">CIÊNCIA DE DADOS</p>
+                <h1>Resumo de vendas</h1>
+                <p>Totais calculados a partir do CSV de vendas.</p>
+            </div>
+
+            <div class="barra-resumo">
+                <p id="atualizacao" class="texto-apoio">Aguardando a consulta à API.</p>
+                <button id="botao-atualizar" class="botao botao-principal" type="button">Atualizar dados</button>
+            </div>
+
+            <p id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></p>
+
+            <h2 id="titulo-indicadores" class="titulo-secao">Visão geral</h2>
+            <div class="indicadores">
+                <article class="indicador">
+                    <h3>Compras realizadas</h3>
+                    <p id="total-compras" class="indicador-valor">—</p>
+                    <p class="texto-apoio">Cada venda é contada uma vez.</p>
+                </article>
+                <article class="indicador">
+                    <h3>Clientes diferentes</h3>
+                    <p id="total-clientes" class="indicador-valor">—</p>
+                    <p class="texto-apoio">Clientes que compraram no período.</p>
+                </article>
+                <article class="indicador">
+                    <h3>Produtos diferentes</h3>
+                    <p id="total-produtos" class="indicador-valor">—</p>
+                    <p class="texto-apoio">Variedade de produtos vendidos.</p>
+                </article>
+            </div>
+
+            <section class="painel" aria-labelledby="titulo-pagamentos">
+                <div class="painel-titulo">
+                    <h2 id="titulo-pagamentos">Compras por forma de pagamento</h2>
+                    <span class="legenda">TOTALIZADOR</span>
+                </div>
+                <p class="descricao-painel">Cada compra aparece em apenas uma forma de pagamento.</p>
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Forma de pagamento</th>
+                                <th scope="col" class="numero">Total de compras</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-pagamentos">
+                            <tr>
+                                <td colspan="2" class="vazio">Aguardando os dados...</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th scope="row">Total</th>
+                                <td id="total-pagamentos" class="numero">—</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <p class="nota-dados">Os totais representam todo o período presente no CSV. Esta tela não aplica filtros de datas.</p>
+            <footer class="rodape">Mercearia do João · Análise de vendas</footer>
+        </section>
+
         <!-- ABA 1: ESTUDO -->
         <section id="estudo" class="tab-content">
             <div class="studies-wrapper">
@@ -394,192 +468,4 @@
                                     <strong>Resumo semanal por e-mail</strong>
                                     <small>Um resumo da sua semana toda domingo.</small>
                                 </div>
-                                <label class="switch"><input type="checkbox" data-setting="notifEmail"><span
-                                        class="slider"></span></label>
-                            </div>
-
-                            <div class="field field-inline">
-                                <label for="set-antecedencia">Avisar com antecedência de</label>
-                                <select id="set-antecedencia" data-setting="antecedencia">
-                                    <option value="5">5 minutos</option>
-                                    <option value="15">15 minutos</option>
-                                    <option value="30">30 minutos</option>
-                                    <option value="60">1 hora</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- PAINEL 3: PRIVACIDADE E SEGURANÇA -->
-                        <div class="settings-panel" id="panel-privacidade">
-                            <div class="panel-top">
-                                <div>
-                                    <h2>Privacidade e segurança</h2>
-                                    <p>Controle quem vê seus dados e o que fica guardado.</p>
-                                </div>
-                            </div>
-
-                            <div class="toggle-row">
-                                <div>
-                                    <strong>Perfil visível para outras pessoas</strong>
-                                    <small>Seu nome e foto podem aparecer em eventos compartilhados.</small>
-                                </div>
-                                <label class="switch"><input type="checkbox" data-setting="perfilPublico"><span
-                                        class="slider"></span></label>
-                            </div>
-
-                            <div class="toggle-row">
-                                <div>
-                                    <strong>Guardar histórico do chat bot</strong>
-                                    <small>Permite que a Aya lembre das conversas anteriores.</small>
-                                </div>
-                                <label class="switch"><input type="checkbox" data-setting="historicoChat"><span
-                                        class="slider"></span></label>
-                            </div>
-
-                            <div class="toggle-row">
-                                <div>
-                                    <strong>Pedir confirmação ao apagar eventos</strong>
-                                    <small>Evita apagar algo sem querer.</small>
-                                </div>
-                                <label class="switch"><input type="checkbox" data-setting="confirmarExclusao"><span
-                                        class="slider"></span></label>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Barra de ações -->
-                    <div class="settings-footer">
-                        <button type="button" class="link-btn" id="btn-restore">Restaurar padrões</button>
-                        <div class="footer-actions">
-                            <button type="button" class="btn-ghost" id="btn-cancel">Cancelar</button>
-                            <button type="button" class="btn-save" id="btn-save" disabled>Salvar alterações</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-              <!-- ABA 5: CHAT BOT -->
-        <section id="chatbot" class="tab-content">
-            <div class="chat-shell">
-
-                <!-- Coluna principal do chat -->
-                <div class="chat-main">
-
-                    <header class="chat-header">
-                        <div class="chat-ident">
-                            <div class="chat-avatar">A</div>
-                            <div>
-                                <h2>Aya</h2>
-                                <p class="chat-status"><span class="status-dot"></span> Online agora</p>
-                            </div>
-                        </div>
-                        <div class="chat-header-actions">
-                            <button type="button" class="chat-icon-btn" aria-label="Alterar tema"><i class="fa-regular fa-moon"></i></button>
-                            <button type="button" class="chat-icon-btn" aria-label="Limpar conversa"><i class="fa-regular fa-trash-can"></i></button>
-                        </div>
-                    </header>
-
-                    <div class="chat-body">
-                        <div class="chat-welcome">
-                            <div class="chat-avatar chat-avatar-sm">A</div>
-                            <h3>Olá, eu sou a Aya!</h3>
-                            <p>Envie uma mensagem ou escolha uma pergunta rápida para começar.</p>
-                        </div>
-                    </div>
-
-                    <div class="chat-quick">
-                        <button type="button" class="chat-chip">Como adicionar um evento?</button>
-                        <button type="button" class="chat-chip">Como registrar meu sono?</button>
-                        <button type="button" class="chat-chip">Preciso de ajuda</button>
-                    </div>
-
-                    <div class="chat-input">
-                        <button type="button" class="chat-icon-btn" aria-label="Anexar arquivo"><i class="fa-solid fa-paperclip"></i></button>
-                        <input type="text" placeholder="Digite sua mensagem...">
-                        <button type="button" class="chat-send" aria-label="Enviar"><i class="fa-regular fa-paper-plane"></i></button>
-                    </div>
-                </div>
-
-                <!-- Painel lateral -->
-                <aside class="chat-side">
-                    <p class="chat-side-eyebrow">atendimento</p>
-                    <h3>Estamos por aqui</h3>
-                    <p class="chat-side-desc">Use este canal para tirar dúvidas e receber orientações sobre o Flow Agendas.</p>
-
-                    <div class="chat-info-card">
-                        <i class="fa-regular fa-circle-check"></i>
-                        <div>
-                            <strong>Status do atendimento</strong>
-                            <p>A Aya está disponível para responder agora.</p>
-                        </div>
-                    </div>
-
-                    <div class="chat-info-card">
-                        <i class="fa-regular fa-clock"></i>
-                        <div>
-                            <strong>Tempo estimado</strong>
-                            <p>Respostas automáticas em poucos instantes.</p>
-                        </div>
-                    </div>
-                </aside>
-
-            </div>
-        </section>
-
-                   <!-- ABA 6: LOGIN -->
-        <section id="login" class="tab-content">
-            <div class="login-page">
-
-                <!-- Fundo animado -->
-<span class="blob blob-pink"></span>
-<span class="blob blob-light"></span>
-<span class="blob blob-yellow"></span>
-<span class="blob blob-purple"></span>
-
-                <div class="split-login-wrapper">
-
-                    <!-- Lado esquerdo: nome do site -->
-                    <div class="login-art">
-                        <p class="login-brand">flow agendas</p>
-                        <p class="login-tagline">Estudos, rotina e bem-estar em um só lugar.</p>
-                    </div>
-
-                    <!-- Lado direito: formulário -->
-                    <div class="login-form-side">
-                        <div class="login-box">
-                            <h2>LOGIN</h2>
-
-                            <div class="login-field">
-                                <i class="fa-solid fa-user"></i>
-                                <input type="text" placeholder="Usuário" aria-label="Usuário">
-                            </div>
-
-                            <div class="login-field">
-                                <i class="fa-solid fa-lock"></i>
-                                <input type="password" placeholder="Senha" aria-label="Senha">
-                            </div>
-
-                            <div class="login-options">
-                                <label class="remember">
-                                    <input type="checkbox" checked>
-                                    <span>Lembrar de mim</span>
-                                </label>
-                                <a href="#" class="login-link">Esqueci a senha?</a>
-                            </div>
-
-                            <button type="button" class="btn-login">ENTRAR</button>
-                            <a href="#" class="login-create">Criar conta</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-</body>
-
-</html>
+                                <label class="switch"><input type="checkbox"
