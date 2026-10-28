@@ -44,7 +44,10 @@ ALIASES = {
     "status": ["status", "situacao"],
 }
 
-app = FastAPI(title="Flow Agendas API")
+app = FastAPI(
+    title="Flow Agendas API",
+    swagger_ui_parameters={"defaultModelsExpandDepth": -1},  # esconde a seção Schemas
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -134,6 +137,11 @@ def data_iso(texto: str) -> str:
 
 
 # ---------- rotas ----------
+@app.get("/")
+def raiz():
+    return {"mensagem": "Flow Agendas backend funcionando"}
+
+
 @app.get("/analise/resumo")
 def resumo():
     linhas, _, mapa, _, _ = ler_csv()
@@ -173,7 +181,18 @@ def resumo():
     }
 
 
-@app.get("/debug")
+@app.get("/analise/categoria")
+def analise_categoria():
+    dados = resumo()
+    return {"total_geral": dados["total_geral"], "categorias": dados["categorias"]}
+
+
+@app.get("/analise/datas")
+def analise_datas():
+    return {"por_data": resumo()["por_data"]}
+
+
+@app.get("/debug", include_in_schema=False)  # continua funcionando, mas some do /docs
 def debug():
     linhas, colunas, mapa, caminho, sep = ler_csv()
     return {
@@ -216,7 +235,7 @@ def salvar_evento(titulo: str, data: str, hora: str) -> None:
         csv.DictWriter(f, fieldnames=colunas, delimiter=sep).writerow(nova)
 
 
-@app.post("/chat")
+@app.post("/chat", include_in_schema=False)
 def chat(msg: Mensagem):
     texto = msg.texto.strip()
     baixo = texto.lower()
