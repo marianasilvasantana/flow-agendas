@@ -1,7 +1,4 @@
-/* ============================================
-   NAVEGAÇÃO ENTRE ABAS
-   ============================================ */
-   document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const menuItems = document.querySelectorAll('.menu-item, .logout-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -12,7 +9,7 @@
             const targetTab = item.getAttribute('data-tab');
             if (!targetTab) return;
 
-            // Remove a classe active de todos os itens e abas
+            // Remove a classe active de todos
             menuItems.forEach(i => i.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
@@ -40,7 +37,6 @@ const goalSleepMin = 480; // 8h
 
 // Atualiza o texto e o anel de progresso de um card
 function updateRing(card, text, percent) {
-    if (!card) return;
     const value = card.querySelector('.progress-value');
     const circle = card.querySelector('.progress-circle');
     if (value) value.innerText = text;
@@ -72,7 +68,7 @@ function parseTime(text) {
 }
 
 function registerSleep() {
-    const card = window.event?.currentTarget?.closest('.wellness-card');
+    const card = event.currentTarget.closest('.wellness-card');
 
     const sleptAt = parseTime(prompt('Hora que dormiu (ex: 23:30):'));
     if (sleptAt === null) return alert('Horário inválido. Use o formato HH:MM.');
@@ -87,13 +83,11 @@ function registerSleep() {
     const hours = Math.floor(duration / 60);
     const minutes = duration % 60;
 
-    if (card) {
-        updateRing(card, `${hours}h ${minutes}m`, (duration / goalSleepMin) * 100);
-    }
+    updateRing(card, `${hours}h ${minutes}m`, (duration / goalSleepMin) * 100);
 }
 
 function registerWorkout() {
-    const card = window.event?.currentTarget?.closest('.wellness-card');
+    const card = event.currentTarget.closest('.wellness-card');
 
     const minutes = Number(prompt('Quantos minutos de treino?'));
     if (!Number.isFinite(minutes) || minutes <= 0) {
@@ -101,27 +95,21 @@ function registerWorkout() {
     }
 
     totalWorkoutMin += minutes;
-    if (card) {
-        updateRing(card, `${totalWorkoutMin} min`, (totalWorkoutMin / goalWorkoutMin) * 100);
-    }
+    updateRing(card, `${totalWorkoutMin} min`, (totalWorkoutMin / goalWorkoutMin) * 100);
 }
 
 /* ============================================
    ESTUDO
    ============================================ */
 function selectSubject(name, examTitle, examContent) {
-    const titleElem = document.getElementById('selected-subject-title');
-    const examTitleElem = document.getElementById('exam-title');
-    const examContentElem = document.getElementById('exam-content');
+    // 1. Atualiza o título e a notinha no painel direito
+    document.getElementById('selected-subject-title').innerText = name;
+    document.getElementById('exam-title').innerText = examTitle;
+    document.getElementById('exam-content').innerText = examContent;
 
-    if (titleElem) titleElem.innerText = name;
-    if (examTitleElem) examTitleElem.innerText = examTitle;
-    if (examContentElem) examContentElem.innerText = examContent;
-
+    // 2. Destaca o card clicado
     document.querySelectorAll('.course-card').forEach(card => card.classList.remove('active'));
-    if (window.event?.currentTarget) {
-        window.event.currentTarget.classList.add('active');
-    }
+    event.currentTarget.classList.add('active');
 }
 
 /* ============================================
@@ -158,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!btnSave) return;
 
+    // Carrega o que foi salvo (ou usa os padrões)
     function loadSaved() {
         try {
             const raw = localStorage.getItem(STORAGE_KEY);
@@ -202,16 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function refreshStatus() {
         const dirty = isDirty();
         btnSave.disabled = !dirty;
-        if (status) {
-            status.textContent = dirty ? 'Alterações não salvas' : 'Alterações salvas';
-            status.classList.toggle('unsaved', dirty);
-        }
+        status.textContent = dirty ? 'Alterações não salvas' : 'Alterações salvas';
+        status.classList.toggle('unsaved', dirty);
     }
 
     function updateAvatarInitial() {
-        if (!avatar || avatar.style.backgroundImage) return;
-        const setNomeElem = document.getElementById('set-nome');
-        const nome = setNomeElem ? setNomeElem.value.trim() : '';
+        if (avatar.style.backgroundImage) return;
+        const nome = document.getElementById('set-nome').value.trim();
         avatar.textContent = nome ? nome[0].toUpperCase() : '?';
     }
 
@@ -220,8 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navItems.forEach(i => i.classList.remove('active'));
             panels.forEach(p => p.classList.remove('active'));
             item.classList.add('active');
-            const targetPanel = document.getElementById('panel-' + item.dataset.panel);
-            if (targetPanel) targetPanel.classList.add('active');
+            document.getElementById('panel-' + item.dataset.panel).classList.add('active');
         });
     });
 
@@ -256,20 +241,16 @@ document.addEventListener('DOMContentLoaded', () => {
         refreshStatus();
     });
 
-    if (avatarInput) {
-        avatarInput.addEventListener('change', () => {
-            const file = avatarInput.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = () => {
-                if (avatar) {
-                    avatar.style.backgroundImage = `url(${reader.result})`;
-                    avatar.textContent = '';
-                }
-            };
-            reader.readAsDataURL(file);
-        });
-    }
+    avatarInput.addEventListener('change', () => {
+        const file = avatarInput.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            avatar.style.backgroundImage = `url(${reader.result})`;
+            avatar.textContent = '';
+        };
+        reader.readAsDataURL(file);
+    });
 
     writeForm(saved);
     refreshStatus();
@@ -286,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!chatInput || !sendBtn || !chatBody) return;
 
+    // Função para adicionar balão de mensagem na conversa
     function adicionarBalao(texto, tipo) {
         const welcomeBlock = chatBody.querySelector('.chat-welcome');
         if (welcomeBlock) welcomeBlock.style.display = 'none';
@@ -298,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBody.scrollTop = chatBody.scrollHeight;
     }
 
+    // Função para adicionar o card de evento na agenda
     function adicionarEventoNaAgenda(titulo, data, hora) {
         const calendarGrid = document.querySelector('.calendar-grid');
         if (!calendarGrid) return;
@@ -313,6 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         colunaDia.appendChild(novoCard);
     }
 
+    // Função para enviar mensagem ao backend
     async function enviarMensagem(texto) {
         const mensagemUsuario = texto || chatInput.value.trim();
         if (!mensagemUsuario) return;
@@ -331,13 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const dados = await resposta.json();
             
+            // Exibe a resposta de texto da Aya
             adicionarBalao(dados.resposta, 'bot');
 
+            // Se a IA detetou intenção de evento, injeta na agenda!
             if (dados.criar_evento) {
                 adicionarEventoNaAgenda(dados.titulo, dados.data, dados.hora);
             }
 
-        } catch {
+        } catch (erro) {
             adicionarBalao('Desculpe, estou com dificuldades de conexão com o servidor.', 'bot');
         }
     }
@@ -356,199 +342,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-/* ============================================
-   RESUMO DE INTELIGÊNCIA DE DADOS (API / CSV)
-   ============================================ */
-document.addEventListener('DOMContentLoaded', () => {
-    const API_URL = 'http://127.0.0.1:8000';
-
-    const totalCompras = document.querySelector('#total-compras');
-    const totalClientes = document.querySelector('#total-clientes');
-    const totalProdutos = document.querySelector('#total-produtos');
-    const listaPagamentos = document.querySelector('#lista-pagamentos');
-    const listaDatas = document.querySelector('#lista-datas');
-    const totalPagamentos = document.querySelector('#total-pagamentos');
-    const botaoAtualizar = document.querySelector('#botao-atualizar');
-    const mensagem = document.querySelector('#mensagem');
-    const atualizacao = document.querySelector('#atualizacao');
-    const resumo = document.querySelector('#resumo');
-
-    if (!botaoAtualizar) return;
-
-    const nomesCategorias = {
-        agendado: 'Agendado',
-        concluido: 'Concluído',
-        cancelado: 'Cancelado',
-        em_andamento: 'Em Andamento',
-        dinheiro: 'Dinheiro',
-        pix: 'Pix',
-        cartao_debito: 'Cartão de débito',
-        cartao_credito: 'Cartão de crédito',
-        fiado: 'Fiado'
-    };
-
-    function numero(valor) {
-        return (valor || 0).toLocaleString('pt-BR');
-    }
-
-    function mostrarMensagem(texto, erro = false) {
-        if (!mensagem) return;
-        mensagem.textContent = texto;
-        mensagem.className = erro ? 'mensagem erro' : 'mensagem';
-        mensagem.hidden = false;
-    }
-
-    function estadoTabela(texto) {
-        if (listaPagamentos) {
-            listaPagamentos.replaceChildren();
-            const linha = listaPagamentos.insertRow();
-            const celula = linha.insertCell();
-            celula.colSpan = 2;
-            celula.style.textAlign = 'center';
-            celula.style.padding = '20px';
-            celula.style.color = '#636366';
-            celula.textContent = texto;
-        }
-
-        if (listaDatas) {
-            listaDatas.replaceChildren();
-            const linha = listaDatas.insertRow();
-            const celula = linha.insertCell();
-            celula.colSpan = 4;
-            celula.style.textAlign = 'center';
-            celula.style.padding = '20px';
-            celula.style.color = '#636366';
-            celula.textContent = texto;
-        }
-    }
-
-    function limparTotais() {
-        if (totalCompras) totalCompras.textContent = '—';
-        if (totalClientes) totalClientes.textContent = '—';
-        if (totalProdutos) totalProdutos.textContent = '—';
-        if (totalPagamentos) totalPagamentos.textContent = '—';
-    }
-
-    async function consultar(caminho) {
-        let resposta;
-        try {
-            resposta = await fetch(API_URL + caminho);
-        } catch {
-            throw new Error('Não foi possível acessar a API. Confira se o backend FastAPI está ligado.');
-        }
-        const dados = await resposta.json();
-        if (!resposta.ok) {
-            const detalhe = typeof dados.detail === 'string' ? dados.detail : 'Falha na consulta.';
-            throw new Error(detalhe);
-        }
-        return dados;
-    }
-
-    function exibirCategorias(dados) {
-        if (!listaPagamentos) return;
-        listaPagamentos.replaceChildren();
-
-        const lista = dados.por_forma_pagamento || dados.categorias || [];
-
-        for (const item of lista) {
-            const linha = listaPagamentos.insertRow();
-            const chave = item.forma_pagamento || item.categoria || item.status;
-
-            const celulaNome = linha.insertCell();
-            celulaNome.style.padding = '12px';
-            celulaNome.textContent = nomesCategorias[chave] || chave;
-
-            const celulaQtd = linha.insertCell();
-            celulaQtd.style.padding = '12px';
-            celulaQtd.style.textAlign = 'right';
-            const valorQtd = item.total_compras ?? item.quantidade ?? 0;
-            celulaQtd.textContent = numero(valorQtd);
-        }
-
-        if (lista.length === 0) {
-            estadoTabela('Nenhum dado encontrado para exibição.');
-        }
-
-        if (totalPagamentos) {
-            totalPagamentos.textContent = numero(dados.total_compras || dados.total_geral || 0);
-        }
-    }
-
-    function exibirTabelaDatas(dados) {
-        if (!listaDatas) return;
-        listaDatas.replaceChildren();
-
-        const datas = dados.por_data || dados.datas || [];
-
-        for (const item of datas) {
-            const linha = listaDatas.insertRow();
-
-            const celData = linha.insertCell();
-            celData.style.padding = '12px';
-            celData.textContent = item.data || item.dia || '—';
-
-            const celPend = linha.insertCell();
-            celPend.style.padding = '12px';
-            celPend.style.textAlign = 'right';
-            celPend.textContent = numero(item.pendentes || 0);
-
-            const celConc = linha.insertCell();
-            celConc.style.padding = '12px';
-            celConc.style.textAlign = 'right';
-            celConc.textContent = numero(item.concluidas || 0);
-
-            const celTotal = linha.insertCell();
-            celTotal.style.padding = '12px';
-            celTotal.style.textAlign = 'right';
-            celTotal.textContent = numero(item.total || (item.pendentes + item.concluidas) || 0);
-        }
-
-        if (datas.length === 0) {
-            const linha = listaDatas.insertRow();
-            const celula = linha.insertCell();
-            celula.colSpan = 4;
-            celula.style.textAlign = 'center';
-            celula.style.padding = '20px';
-            celula.style.color = '#636366';
-            celula.textContent = 'Nenhum registro por data no período.';
-        }
-    }
-
-    async function carregarResumo() {
-        botaoAtualizar.disabled = true;
-        botaoAtualizar.textContent = 'Carregando...';
-        if (resumo) resumo.setAttribute('aria-busy', 'true');
-        if (mensagem) mensagem.hidden = true;
-        if (atualizacao) atualizacao.textContent = 'Consultando a API...';
-
-        limparTotais();
-        estadoTabela('Carregando os dados do relatório...');
-
-        try {
-            const dados = await consultar('/analise/resumo');
-
-            if (totalCompras) totalCompras.textContent = numero(dados.total_compras || dados.total_agendamentos || 0);
-            if (totalClientes) totalClientes.textContent = numero(dados.total_clientes || 0);
-            if (totalProdutos) totalProdutos.textContent = numero(dados.total_produtos || dados.total_categorias || 0);
-
-            exibirCategorias(dados);
-            exibirTabelaDatas(dados);
-
-            if (atualizacao) atualizacao.textContent = 'Última consulta: ' + new Date().toLocaleString('pt-BR');
-            mostrarMensagem('Dados atualizados com sucesso a partir da API!');
-        } catch (erro) {
-            limparTotais();
-            estadoTabela('Dados indisponíveis. Verifique se o backend está ligado.');
-            if (atualizacao) atualizacao.textContent = 'A consulta não foi concluída.';
-            mostrarMensagem(erro.message, true);
-        } finally {
-            botaoAtualizar.disabled = false;
-            botaoAtualizar.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Atualizar dados';
-            if (resumo) resumo.setAttribute('aria-busy', 'false');
-        }
-    }
-
-    botaoAtualizar.addEventListener('click', carregarResumo);
-    carregarResumo();
-});FastAPI
