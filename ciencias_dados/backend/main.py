@@ -267,3 +267,59 @@ def chat(msg: Mensagem):
 
     return {"resposta": "Não entendi muito bem. Tente: \"marcar prova 30/09 às 14:00\".",
             "criar_evento": False}
+
+from analisedashboard import tarefas_por_dia, tarefas_por_categoria
+
+@app.get("/dashboard/tarefas-por-dia")
+def consultar_tarefas_por_dia():
+    return tarefas_por_dia()
+
+
+@app.get("/dashboard/tarefas-por-categoria")
+def consultar_tarefas_por_categoria():
+    return tarefas_por_categoria()
+"""Aplicação principal FastAPI do Flow Agendas."""
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+
+# 1. Imports dos routers com os apelidos indicados
+from controller.dashboard import router as dashboard_router
+from controller.resumo import router as resumo_router
+
+app = FastAPI(
+    title="Flow Agendas - API",
+    description="API para análise e relatórios de tarefas e agendamentos.",
+)
+
+# Configuração de CORS para permitir acesso da página Web (Frontend)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+    ],
+    allow_methods=["GET"],
+    allow_headers=["Content-Type"],
+)
+
+# 2. Registro dos dois routers na aplicação
+app.include_router(resumo_router)
+app.include_router(dashboard_router)
+
+
+# Tratadores de exceção para retornar HTTP 503 com mensagem clara
+@app.exception_handler(FileNotFoundError)
+async def arquivo_nao_encontrado(request: Request, erro: FileNotFoundError):
+    return JSONResponse(
+        status_code=503,
+        content={"detail": "Arquivo database/agendas.csv não encontrado."},
+    )
+
+
+@app.exception_handler(ValueError)
+async def dados_invalidos(request: Request, erro: ValueError):
+    return JSONResponse(
+        status_code=503,
+        content={"detail": f"Não foi possível analisar os dados: {erro}"},
+    )
