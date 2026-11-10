@@ -1,8 +1,11 @@
 import os
 import json
+import webbrowser
+import threading
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles # Importação necessária para o frontend
 from pydantic import BaseModel
 from groq import Groq
 
@@ -20,18 +23,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configuração do Middleware de CORS para permitir requisições do Live Server
+# Configuração do Middleware de CORS (Liberado para evitar erros no frontend)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:5500",
-        "http://localhost:5500",
-        "http://127.0.0.1:8000",
-        "http://localhost:8000",
-        "http://localhost:3000",
-    ],
+    allow_origins=["*"], 
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -94,7 +91,7 @@ def responder_chat(msg: Mensagem):
 async def arquivo_nao_encontrado(request: Request, erro: FileNotFoundError):
     return JSONResponse(
         status_code=503,
-        content={"detail": "Arquivo database/flow_agendas_com_usuarios.csv não encontrado."},
+        content={"detail": "Arquivo CSV não encontrado. Verifique o caminho no analise.py."},
     )
 
 
@@ -104,3 +101,21 @@ async def dados_invalidos(request: Request, erro: ValueError):
         status_code=503,
         content={"detail": f"Não foi possível analisar o CSV: {erro}"},
     )
+
+
+# =====================================================================
+# CONFIGURAÇÃO PARA SERVIR O FRONTEND E ABRIR O NAVEGADOR AUTOMATICAMENTE
+# =====================================================================
+
+# Monta a pasta frontend na raiz (/) para que o http://127.0.0.1:8000 abra o resumo.html
+# O "../" assume que o main.py está dentro da pasta 'backend'
+if os.path.exists("../frontend"):
+    app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
+
+def abrir_navegador():
+    webbrowser.open("http://127.0.0.1:8000")
+
+@app.on_event("startup")
+async def startup_event():
+    # Abre o navegador 1.5 segundos após o servidor ligar
+    threading.Timer(1.5, abrir_navegador).start()
