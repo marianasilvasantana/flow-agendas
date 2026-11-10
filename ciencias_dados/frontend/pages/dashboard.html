@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | flow-agendas</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="static/vendor/chart.umd.min.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body class="pagina-dashboard">
+  <header class="cabecalho">
+    <div class="container">
+      <span class="marca">flow-agendas</span>
+      <span class="subtitulo">Ciência de Dados · Análise de Produtividade</span>
+      <nav class="menu-navegacao">
+        <a href="index.html">Início</a>
+        <a href="dashboard.html" class="ativo">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="dashboard" class="container" aria-busy="false">
+    <div class="titulo-pagina">
+      <p class="legenda">DADOS PARA COMPREENDER A PRODUTIVIDADE</p>
+      <h1>Dashboard de Tarefas</h1>
+      <p>Acompanhe os totais e observe a distribuição das tarefas no período.</p>
+    </div>
+
+    <div class="barra-resumo">
+      <div>
+        <p id="periodo" class="texto-apoio">Período ainda não consultado.</p>
+        <p id="atualizacao" class="texto-apoio">Aguardando a API.</p>
+      </div>
+      <button id="botao-atualizar" type="button" class="botao botao-principal">
+        Atualizar dados
+      </button>
+    </div>
+
+    <p id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></p>
+
+    <section aria-label="Indicadores do período" class="indicadores">
+      <article class="indicador">
+        <h2>Tarefas totais</h2>
+        <p id="total-tarefas" class="indicador-valor">—</p>
+        <p class="texto-apoio">Compromissos pendentes ou concluídos.</p>
+      </article>
+
+      <article class="indicador">
+        <h2>Usuários</h2>
+        <p id="total-usuarios" class="indicador-valor">—</p>
+        <p class="texto-apoio">Utilizadores distintos cadastrados.</p>
+      </article>
+
+      <article class="indicador">
+        <h2>Concluídas</h2>
+        <p id="total-concluidas" class="indicador-valor">—</p>
+        <p class="texto-apoio">Tarefas finalizadas no período.</p>
+      </article>
+    </section>
+
+    <p id="aviso-graficos" class="nota-dados">Aguardando os dados dos gráficos.</p>
+
+    <section id="graficos" class="grade-graficos" aria-label="Gráficos" hidden>
+      <article class="painel">
+        <div class="painel-titulo"><h2>Tarefas por categoria</h2></div>
+        <p class="descricao-painel">Quantas tarefas pertencem a cada categoria?</p>
+        <div class="area-grafico">
+          <canvas id="grafico-categorias" role="img" aria-label="Tarefas por categoria">
+            Consulte os valores na tabela de categorias abaixo.
+          </canvas>
+        </div>
+      </article>
+
+      <article class="painel">
+        <div class="painel-titulo"><h2>Tarefas por dia</h2></div>
+        <p class="descricao-painel">Quantas tarefas foram agendadas em cada data?</p>
+        <div class="area-grafico">
+          <canvas id="grafico-tarefas" role="img" aria-label="Tarefas por dia">
+            Consulte os valores na tabela por dia abaixo.
+          </canvas>
+        </div>
+      </article>
+
+      <article class="painel grafico-largo">
+        <div class="painel-titulo"><h2>Tarefas concluídas por dia</h2></div>
+        <p class="descricao-painel">Evolução diária de tarefas finalizadas no sistema.</p>
+        <div class="area-grafico">
+          <canvas id="grafico-concluidas" role="img" aria-label="Tarefas concluídas por dia">
+            Consulte os valores na tabela por dia abaixo.
+          </canvas>
+        </div>
+      </article>
+    </section>
+
+    <p class="nota-dados">
+      Tarefas concluídas representam compromissos finalizados no sistema. 
+      Datas ausentes indicam dias sem registros. A linha de evolução liga 
+      apenas os dias disponíveis, sem projetar estimativas futuras.
+    </p>
+
+    <details class="painel">
+      <summary>Conferir os valores por categoria</summary>
+      <div class="tabela-container">
+        <table>
+          <caption>Distribuição de tarefas por categoria</caption>
+          <thead>
+            <tr>
+              <th scope="col">Categoria</th>
+              <th scope="col">Tarefas</th>
+            </tr>
+          </thead>
+          <tbody id="lista-categorias"></tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="painel">
+      <summary>Conferir os valores por dia</summary>
+      <div class="tabela-container">
+        <table>
+          <caption>Tarefas agendadas e concluídas nas datas disponíveis</caption>
+          <thead>
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Tarefas Totais</th>
+              <th scope="col">Concluídas</th>
+            </tr>
+          </thead>
+          <tbody id="lista-dias"></tbody>
+        </table>
+      </div>
+    </details>
+
+    <footer class="rodape">Flow Agendas · Sistema de Gestão de Tarefas</footer>
+  </main>
+</body>
+</html>
