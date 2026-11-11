@@ -107,5 +107,5 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.chat-chip').forEach(chip => {
             chip.addEventListener('click', () => enviarMensagem(chip.textContent));
         });
-    }
+   }
 });

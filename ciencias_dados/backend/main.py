@@ -5,7 +5,7 @@ import threading
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles # Importação necessária para o frontend
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from groq import Groq
 
@@ -17,13 +17,14 @@ from controller.resumo import router as resumo_router
 MINHA_CHAVE_GROQ = os.getenv("GROQ_API_KEY", "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")
 os.environ["GROQ_API_KEY"] = MINHA_CHAVE_GROQ
 
+# AQUI ESTÁ A CRIAÇÃO DO APP (que estava faltando)
 app = FastAPI(
     title="Flow Agendas - API Principal",
     description="Backend do Flow Agendas com análise de dados e assistente Aya.",
     version="1.0.0"
 )
 
-# Configuração do Middleware de CORS (Liberado para evitar erros no frontend)
+# Configuração do Middleware de CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -36,22 +37,18 @@ app.add_middleware(
 app.include_router(resumo_router)
 app.include_router(dashboard_router)
 
-
 # --- ROTAS DE ANÁLISE DIRETA ---
 @app.get("/analise/resumo")
 def consultar_resumo():
     return resumo(ler_dados())
 
-
 @app.get("/analise/categorias")
 def consultar_categorias():
     return por_categoria(ler_dados())
 
-
 @app.get("/analise/datas")
 def consultar_datas():
     return por_data(ler_dados())
-
 
 # --- ROTA DO CHATBOT (AYA) ---
 class Mensagem(BaseModel):
@@ -85,7 +82,6 @@ def responder_chat(msg: Mensagem):
     except Exception as e:
         return {"criar_evento": False, "resposta": f"Erro na API: {str(e)}"}
 
-
 # --- TRATAMENTO DE EXCEÇÕES ---
 @app.exception_handler(FileNotFoundError)
 async def arquivo_nao_encontrado(request: Request, erro: FileNotFoundError):
@@ -94,7 +90,6 @@ async def arquivo_nao_encontrado(request: Request, erro: FileNotFoundError):
         content={"detail": "Arquivo CSV não encontrado. Verifique o caminho no analise.py."},
     )
 
-
 @app.exception_handler(ValueError)
 async def dados_invalidos(request: Request, erro: ValueError):
     return JSONResponse(
@@ -102,13 +97,9 @@ async def dados_invalidos(request: Request, erro: ValueError):
         content={"detail": f"Não foi possível analisar o CSV: {erro}"},
     )
 
-
 # =====================================================================
 # CONFIGURAÇÃO PARA SERVIR O FRONTEND E ABRIR O NAVEGADOR AUTOMATICAMENTE
 # =====================================================================
-
-# Monta a pasta frontend na raiz (/) para que o http://127.0.0.1:8000 abra o resumo.html
-# O "../" assume que o main.py está dentro da pasta 'backend'
 if os.path.exists("../frontend"):
     app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 
@@ -117,5 +108,4 @@ def abrir_navegador():
 
 @app.on_event("startup")
 async def startup_event():
-    # Abre o navegador 1.5 segundos após o servidor ligar
     threading.Timer(1.5, abrir_navegador).start()

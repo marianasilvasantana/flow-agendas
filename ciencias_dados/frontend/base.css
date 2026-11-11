@@ -18,8 +18,6 @@ body {
     overflow: hidden;
 }
 
-/* ✅ CORRIGIDO: aplica só quando o body recebe a classe (página separada).
-   No SPA, o #dashboard é aba e não precisa disso. */
 body.pagina-dashboard {
     display: block;
     height: auto;
@@ -27,7 +25,6 @@ body.pagina-dashboard {
     overflow: auto;
 }
 
-/* ✅ CORRIGIDO: esconder de verdade qualquer [hidden] */
 [hidden] {
     display: none !important;
 }
@@ -118,7 +115,6 @@ body.pagina-dashboard {
     overflow-y: auto;
 }
 
-/* Barra de pesquisa do topo */
 .top-header {
     display: flex;
     justify-content: space-between;
@@ -171,7 +167,6 @@ body.pagina-dashboard {
     cursor: pointer;
 }
 
-/* Seção de boas-vindas */
 .welcome-section {
     display: flex;
     justify-content: space-between;
@@ -497,8 +492,6 @@ body.pagina-dashboard {
     color: #000000;
 }
 
-/* ✅ CORRIGIDO: aqui era o bloco quebrado. O "display:flex; gap:10px;"
-   estava solto fora da regra. Agora está dentro, e o "}" órfão foi removido. */
 .subject-detail-panel {
     width: 380px;
     flex-shrink: 0;
@@ -729,7 +722,6 @@ body.pagina-dashboard {
     color: #636366;
 }
 
-/* ✅ CORRIGIDO: .legenda unificado (antes estava conflitante em 2 lugares) */
 .legenda {
     display: inline-block;
     background-color: #FFD6E8;
@@ -999,7 +991,7 @@ body.pagina-dashboard {
 }
 
 /* ============================================
-   ABA: CHAT BOT
+   ABA: CHAT BOT (RESTAURADO E ARRUMADO)
    ============================================ */
 .chat-shell {
     display: grid;
@@ -1068,6 +1060,449 @@ body.pagina-dashboard {
 
 .status-dot {
     width: 8px;
-    height: 8px
+    height: 8px;
+    background-color: #4CD964;
+    border-radius: 50%;
+}
 
-}            
+.chat-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8E8E93;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.chat-icon-btn:hover {
+    background-color: #F2F2F7;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #FAFAFA;
+}
+
+.chat-welcome {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-welcome h3 {
+    font-size: 20px;
+    color: #1A1A1A;
+}
+
+.chat-welcome p {
+    font-size: 14px;
+    color: #636366;
+    line-height: 1.5;
+}
+
+.chat-quick {
+    display: flex;
+    gap: 10px;
+    padding: 0 30px 15px;
+    overflow-x: auto;
+}
+
+.chat-chip {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5EA;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #636366;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.chat-chip:hover {
+    background-color: #F2F2F7;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 30px;
+    border-top: 1px solid #E5E5EA;
+    background-color: #FFFFFF;
+}
+
+.chat-input input {
+    flex: 1;
+    border: 1px solid #E5E5EA;
+    border-radius: 20px;
+    padding: 12px 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+.chat-input input:focus {
+    border-color: #E25C84;
+}
+
+.chat-send {
+    background-color: #E25C84;
+    color: #FFFFFF;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.chat-send:hover {
+    background-color: #B8335F;
+}
+
+.chat-side {
+    background-color: #FFFFFF;
+    padding: 30px 24px;
+    border-left: 1px solid #E5E5EA;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chat-side-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8E8E93;
+    font-weight: 700;
+}
+
+.chat-side h3 {
+    font-size: 20px;
+    color: #1A1A1A;
+    margin-top: -10px;
+}
+
+.chat-side-desc {
+    font-size: 13px;
+    color: #636366;
+    line-height: 1.5;
+}
+
+.chat-info-card {
+    display: flex;
+    gap: 12px;
+    background-color: #F9F9FB;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #E5E5EA;
+}
+
+.chat-info-card i {
+    color: #E25C84;
+    font-size: 18px;
+    margin-top: 2px;
+}
+
+.chat-info-card strong {
+    display: block;
+    font-size: 13px;
+    color: #1A1A1A;
+    margin-bottom: 4px;
+}
+
+.chat-info-card p {
+    font-size: 12px;
+    color: #636366;
+    line-height: 1.4;
+}
+
+/* ============================================
+   CORREÇÃO DO LAYOUT DO DASHBOARD E GRÁFICOS
+   ============================================ */
+
+.grade-graficos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.grafico-largo {
+    grid-column: 1 / -1; 
+}
+
+.painel {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E5E5EA;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.painel-titulo h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: #1A1A1A;
+}
+
+.descricao-painel {
+    font-size: 13px;
+    color: #636366;
+    margin-bottom: 15px;
+}
+
+.area-grafico {
+    position: relative;
+    flex: 1; 
+    min-height: 280px; 
+    width: 100%;
+}
+
+.area-grafico:has(#grafico-categorias) {
+    min-height: 300px; 
+}
+
+@media (max-width: 900px) {
+    .grade-graficos {
+        grid-template-columns: 1fr;
+    }
+    .grafico-largo {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ============================================
+   ORGANIZAÇÃO DO DASHBOARD (CARDS E TOPO)
+   ============================================ */
+
+.barra-resumo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 15px 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #E5E5EA;
+}
+
+.barra-resumo p {
+    font-size: 13px;
+    color: #636366;
+    margin: 0;
+}
+
+.botao-principal {
+    background-color: #121214;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.indicadores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.indicador {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #E5E5EA;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.indicador h2 {
+    font-size: 14px;
+    color: #636366;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.indicador-valor {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.texto-apoio {
+    font-size: 13px;
+    color: #8E8E93;
+    margin: 0;
+}
+
+.titulo-pagina {
+    margin-bottom: 25px;
+}
+
+.titulo-pagina h1 {
+    font-size: 32px;
+    margin: 5px 0 10px 0;
+}
+
+.titulo-pagina p {
+    font-size: 14px;
+    color: #636366;
+}
+
+@media (max-width: 900px) {
+    .indicadores {
+        grid-template-columns: 1fr; 
+    }
+}
+
+/* --- ESTILIZAÇÃO DAS TABELAS DO DASHBOARD --- */
+details.painel {
+    margin-top: 20px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid #E5E5EA;
+    overflow: hidden;
+}
+
+details.painel summary {
+    padding: 18px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #1A1A1A;
+    cursor: pointer;
+    background-color: #F9F9FB;
+    border-bottom: 1px solid #E5E5EA;
+    outline: none;
+}
+
+details.painel summary:hover {
+    background-color: #F2F2F7;
+}
+
+.tabela-container {
+    padding: 10px 20px 20px;
+    overflow-x: auto;
+}
+
+.tabela-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-container caption {
+    text-align: left;
+    font-size: 13px;
+    color: #8E8E93;
+    padding: 10px 0;
+}
+
+.tabela-container th {
+    text-align: left;
+    font-size
+}
+
+/* ============================================
+   FUNDO ANIMADO FLUIDO E COLORIDO (AURORA)
+   ============================================ */
+
+   .login-bg {
+    position: relative;
+    background-color: #FAF6EE;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(226, 92, 132, 0.2);
+}
+
+/* Cria as bolas de cor que vão flutuar */
+.login-bg::before,
+.login-bg::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    z-index: 0;
+    /* Cores da sua paleta: Rosa, Roxo, Amarelo, Verde */
+    background: radial-gradient(circle at 20% 30%, #E25C84 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, #FFCC00 0%, transparent 40%),
+                radial-gradient(circle at 70% 80%,rgb(156, 51, 142) 0%, transparent 40%),
+                radial-gradient(circle at 30% 70%, #B8335F 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #FFD6E8 0%, transparent 50%);
+    background-size: 100% 100%;
+    animation: auroraMove 20s ease-in-out infinite alternate;
+    filter: blur(60px); /* O segredo do efeito fluido */
+}
+
+/* Camada extra para dar mais movimento */
+.login-bg::after {
+    background: radial-gradient(circle at 80% 60%, #AF52DE 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, #FF7FA3 0%, transparent 40%),
+                radial-gradient(circle at 50% 20%, #FFE6A3 0%, transparent 40%);
+    animation: auroraMove2 25s ease-in-out infinite alternate;
+    filter: blur(80px);
+}
+
+/* O texto e o card precisam ficar por cima do fundo */
+.login-bg .settings-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Animações lentas */
+@keyframes auroraMove {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(20deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes auroraMove2 {
+    0% {
+        transform: rotate(0deg) scale(1.1);
+    }
+    50% {
+        transform: rotate(-20deg) scale(1);
+    }
+    100% {
+        transform: rotate(0deg) scale(1.1);
+    }
+}
