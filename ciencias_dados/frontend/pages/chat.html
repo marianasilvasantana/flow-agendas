@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat da Aya | Flow-Agendas</title>
+  <link rel="stylesheet" href="../static/base.css">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="../js/chat.js" defer></script>
+</head>
+<body class="pagina-dashboard">
+  <header class="cabecalho">
+    <div class="container">
+      <span class="marca">Flow-Agendas</span>
+      <span class="subtitulo">Ciência de Dados e IA</span>
+    </div>
+  </header>
+  
+  <main class="container" aria-busy="false">
+    <div class="titulo-pagina">
+      <a href="dashboard.html" class="link-voltar">&larr; Voltar ao dashboard</a>
+      <h1>Converse com a Aya</h1>
+      <p>Sua assistente virtual para análise dos dados de agendamentos.</p>
+    </div>
+
+    <section class="painel" aria-labelledby="titulo-chat">
+      <div class="painel-titulo">
+        <h2 id="titulo-chat">Pergunte à Aya</h2>
+      </div>
+      <div class="chat-corpo">
+        <form id="chat-form" class="chat-form">
+          <label for="chat-pergunta">Escolha uma pergunta</label>
+          <select id="chat-pergunta" required disabled>
+            <option value="">Aguardando as perguntas da Aya…</option>
+          </select>
+          <button class="botao botao-principal" id="chat-enviar" type="submit" disabled>
+            Enviar
+          </button>
+        </form>
+        
+        <p id="chat-status" role="status"></p>
+        
+        <article id="chat-resposta" class="chat-resposta" hidden>
+          <h2 id="chat-enunciado"></h2>
+          <h3>Resultado dos Dados</h3>
+          <ul id="chat-dados"></ul>
+          <h3>Explicação da Aya</h3>
+          <p id="chat-explicacao"></p>
+          <p id="chat-aviso" class="chat-aviso" hidden></p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

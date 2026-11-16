@@ -14,10 +14,9 @@ from controller.dashboard import router as dashboard_router
 from controller.resumo import router as resumo_router
 
 # Configuração da API Key da Groq
-MINHA_CHAVE_GROQ = os.getenv("GROQ_API_KEY", "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")
+MINHA_CHAVE_GROQ = os.getenv("GROQ_API_KEY",chave aqui")
 os.environ["GROQ_API_KEY"] = MINHA_CHAVE_GROQ
 
-# AQUI ESTÁ A CRIAÇÃO DO APP (que estava faltando)
 app = FastAPI(
     title="Flow Agendas - API Principal",
     description="Backend do Flow Agendas com análise de dados e assistente Aya.",
@@ -27,13 +26,17 @@ app = FastAPI(
 # Configuração do Middleware de CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "http://127.0.0.1:8000",
+        "http://localhost:8000"
+    ],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
-# Registar os Routers da aplicação
+# Registar os Routers
 app.include_router(resumo_router)
 app.include_router(dashboard_router)
 
@@ -50,37 +53,69 @@ def consultar_categorias():
 def consultar_datas():
     return por_data(ler_dados())
 
-# --- ROTA DO CHATBOT (AYA) ---
-class Mensagem(BaseModel):
-    texto: str
+
+# =====================================================================
+# ROTAS DO CHAT DA AYA
+# =====================================================================
+
+# 1. Rota para o chat.js buscar as perguntas (mesmo que a tela rosa não use, mantemos por segurança)
+@app.get("/chat/perguntas")
+def listar_perguntas():
+    return [
+        "Qual o total de agendamentos?",
+        "Quais são as categorias mais agendadas?",
+        "Como está a evolução dos agendamentos por data?"
+    ]
+
+# 2. Modelo para receber a pergunta do chat.js
+class Pergunta(BaseModel):
+    pergunta: str
 
 PROMPT_SISTEMA = """
-você é a Aya, assistente virtual inteligente do 'Flow Agendas'.
-Analisa a mensagem do utilizador para responder ou agendar tarefas.
-
-Responde SEMPRE num objeto JSON válido com esta estrutura:
-{
-  "criar_evento": false,
-  "resposta": "Sua resposta aqui."
-}
+Você é a Aya, assistente virtual inteligente do 'Flow Agendas'.
+Sua tarefa é explicar de forma simples e amigável os dados de agendamentos que o sistema Python calculou.
 """
 
 @app.post("/chat")
-def responder_chat(msg: Mensagem):
+def responder_chat(dados: Pergunta):
     try:
+        # A. O Python calcula os dados do CSV
+        dados_do_csv = ler_dados()
+        
+        # Pega as categorias calculadas pelo Python
+        categorias_calculadas = por_categoria(dados_do_csv)
+        
+        # Faz um resumo simples para mandar para a IA
+        resumo_dados = {
+            "total_geral": len(dados_do_csv) if hasattr(dados_do_csv, '__len__') else "Ver dashboard",
+            "categorias": categorias_calculadas,
+        }
+
+        # B. A IA explica o resultado
         client = Groq(api_key=MINHA_CHAVE_GROQ)
         completion = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[
                 {"role": "system", "content": PROMPT_SISTEMA},
-                {"role": "user", "content": msg.texto}
+                {"role": "user", "content": f"O utilizador perguntou: '{dados.pergunta}'. Os dados calculados foram: {resumo_dados}. Explique isso de forma curta."}
             ],
             temperature=0.2,
-            response_format={"type": "json_object"}
         )
-        return json.loads(completion.choices[0].message.content)
+        explicacao = completion.choices[0].message.content
+
+        # C. Devolve no formato que o chat.js espera
+        return {
+            "resultado": resumo_dados,
+            "explicacao": explicacao,
+            "aviso": ""
+        }
     except Exception as e:
-        return {"criar_evento": False, "resposta": f"Erro na API: {str(e)}"}
+        # Se a IA falhar, o Python ainda entrega os dados
+        return {
+            "resultado": {"total_geral": "Consultar dashboard", "categorias": []},
+            "explicacao": "A IA está indisponível no momento. Mas os dados do sistema continuam funcionando.",
+            "aviso": f"Aviso do sistema: {str(e)}"
+        }
 
 # --- TRATAMENTO DE EXCEÇÕES ---
 @app.exception_handler(FileNotFoundError)
@@ -98,12 +133,13 @@ async def dados_invalidos(request: Request, erro: ValueError):
     )
 
 # =====================================================================
-# CONFIGURAÇÃO PARA SERVIR O FRONTEND E ABRIR O NAVEGADOR AUTOMATICAMENTE
+# CONFIGURAÇÃO PARA SERVIR O FRONTEND (DEVE SER A ÚLTIMA COISA)
 # =====================================================================
 if os.path.exists("../frontend"):
     app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 
 def abrir_navegador():
+    # ALTERADO AQUI: Agora abre a raiz do site (tela rosa) em vez do chat.html
     webbrowser.open("http://127.0.0.1:8000")
 
 @app.on_event("startup")

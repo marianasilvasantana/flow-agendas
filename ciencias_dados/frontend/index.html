@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
     <script src="script.js" defer></script>
     <script src="resumo.js" defer></script>
+    <!-- Adicionado o chat.js -->
+    <script src="../js/chat.js" defer></script>
 </head>
 
 <body>
@@ -187,22 +189,22 @@
             <section id="graficos" class="grade-graficos" aria-label="Gráficos" hidden>
                 <article class="painel">
                     <div class="painel-titulo"><h2>Tarefas por categoria</h2></div>
-                    <p class="descricao-painel">Quantas tarefas pertencem a cada categoria?</p>
+                    <p class="descricao-painel">Quantas tarefas pertencem a cada categoria</p>
                     <div class="area-grafico">
                         <canvas id="grafico-categorias" role="img" aria-label="Tarefas por categoria">Consulte os valores na tabela de categorias abaixo.</canvas>
                     </div>
                 </article>
 
                 <article class="painel">
-                    <div class="painel-titulo"><h2>Tarefas por dia</h2></div>
-                    <p class="descricao-painel">Quantas tarefas foram agendadas em cada data?</p>
+                    <div class="painel-titulo"><h2>Tarefas por mês</h2></div>
+                    <p class="descricao-painel">Quantas tarefas foram agendadas em cada mẽs</p>
                     <div class="area-grafico">
                         <canvas id="grafico-tarefas" role="img" aria-label="Tarefas por dia">Consulte os valores na tabela por dia abaixo.</canvas>
                     </div>
                 </article>
 
                 <article class="painel grafico-largo">
-                    <div class="painel-titulo"><h2>Tarefas concluídas por dia</h2></div>
+                    <div class="painel-titulo"><h2>Tarefas concluídas por mês</h2></div>
                     <p class="descricao-painel">Evolução diária de tarefas finalizadas no sistema.</p>
                     <div class="area-grafico">
                         <canvas id="grafico-concluidas" role="img" aria-label="Tarefas concluídas por dia">Consulte os valores na tabela por dia abaixo.</canvas>
@@ -282,23 +284,23 @@
             </section>
 
             <section class="date-filters">
-                <button class="btn-date-range">setembro 27/09 - 03/10 <i class="fa-solid fa-chevron-down"></i></button>
+                <button class="btn-date-range">setembro 08/11 - 14/11 <i class="fa-solid fa-chevron-down"></i></button>
                 <div class="view-switch"><button>dia</button><button class="active">semana</button><button>mês</button></div>
             </section>
 
             <section class="calendar-grid">
                 <div class="grid-header-blank"></div>
-                <div class="day-header">domingo <span>27/09</span></div>
-                <div class="day-header">segunda <span>28/09</span></div>
-                <div class="day-header">terça <span>29/09</span></div>
-                <div class="day-header">quarta <span>30/09</span></div>
-                <div class="day-header">quinta <span>01/10</span></div>
-                <div class="day-header">sexta <span>02/10</span></div>
-                <div class="day-header">sábado <span>03/10</span></div>
+                <div class="day-header">domingo <span>08/11</span></div>
+                <div class="day-header">segunda <span>09/11</span></div>
+                <div class="day-header">terça <span>10/11</span></div>
+                <div class="day-header">quarta <span>11/11</span></div>
+                <div class="day-header">quinta <span>12/11</span></div>
+                <div class="day-header">sexta <span>13/11</span></div>
+                <div class="day-header">sábado <span>14/1</span></div>
 
                 <div class="time-col">06:00</div>
-                <div class="calendar-day-col"><div class="card purple"><span class="card-tag">aula</span><span class="card-time">07:10 - 12:30</span></div></div>
-                <div class="calendar-day-col"><div class="card gray"><span class="card-tag">aula</span><span class="card-time">07:10 - 12:30</span><span class="card-tag">vôlei</span><span class="card-time">13:30 - 16:00</span><span class="status-badge-pink">em andamento...</span></div></div>
+                <div class="calendar-day-col"><div class="card purple"><span class="card-tag">almoço na vó</span><span class="card-time"></span></div></div>
+                <div class="calendar-day-col"><div class="card gray"><span class="card-tag">aula</span><span class="card-time">07:10 - 12:30</span><span class="card-tag">vôlei</span><span class="card-time">13:30 - 16:00</span><span class="status-badge-pink"></span></div></div>
                 <div class="calendar-day-col"></div>
                 <div class="calendar-day-col"><div class="card gray border-pink"><span class="card-tag">aula</span><span class="card-time">07:10 - 12:30</span><span class="card-tag">projeto integrador</span><span class="card-time">14:00 - 16:00</span></div></div>
                 <div class="calendar-day-col"><div class="card yellow"><span class="card-tag">aula</span><span class="card-time">07:10 - 12:30</span></div></div>
@@ -399,7 +401,9 @@
             </div>
         </section>
 
-        <!-- ABA: CHAT BOT -->
+        <!-- ========================================== -->
+        <!-- ABA: CHAT BOT (CORRIGIDA PARA A TELA ROSA) -->
+        <!-- ========================================== -->
         <section id="chatbot" class="tab-content">
             <div class="chat-shell">
                 <div class="chat-main">
@@ -413,24 +417,41 @@
                             <button type="button" class="chat-icon-btn" aria-label="Limpar conversa"><i class="fa-regular fa-trash-can"></i></button>
                         </div>
                     </header>
-                    <div class="chat-body">
-                        <div class="chat-welcome">
+                    
+                    <!-- ÁREA DE MENSAGENS -->
+                    <div class="chat-body" id="chat-resposta">
+                        <div class="chat-welcome" id="chat-welcome-msg">
                             <div class="chat-avatar chat-avatar-sm">A</div>
                             <h3>Olá, eu sou a Aya!</h3>
                             <p>Envie uma mensagem ou escolha uma pergunta rápida para começar.</p>
                         </div>
+                        
+                        <!-- Caixa onde as respostas do Python e da IA vão aparecer -->
+                        <div id="chat-dados" style="display: none; width: 100%; margin-top: 15px; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                            <h4 id="chat-enunciado" style="color: #B8335F; margin-bottom: 10px; font-weight: bold;"></h4>
+                            <div id="lista-dados" style="font-size: 14px; color: #333; line-height: 1.6;"></div>
+                            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ccc;">
+                                <p id="chat-explicacao" style="font-size: 14px; font-style: italic; color: #555;"></p>
+                                <p id="chat-aviso" style="color: #d9534f; font-size: 12px; margin-top: 5px;" hidden></p>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- BOTÕES DE PERGUNTAS RÁPIDAS -->
                     <div class="chat-quick">
-                        <button type="button" class="chat-chip">Como adicionar um evento?</button>
-                        <button type="button" class="chat-chip">Como registrar meu sono?</button>
-                        <button type="button" class="chat-chip">Preciso de ajuda</button>
+                        <button type="button" class="chat-chip" onclick="enviarPergunta('Como adicionar um evento?')">Como adicionar um evento?</button>
+                        <button type="button" class="chat-chip" onclick="enviarPergunta('Como registrar meu sono?')">Como registrar meu sono?</button>
+                        <button type="button" class="chat-chip" onclick="enviarPergunta('Preciso de ajuda')">Preciso de ajuda</button>
                     </div>
-                    <div class="chat-input">
+
+                    <!-- CAIXA DE DIGITAR -->
+                    <form class="chat-input" id="chat-form">
                         <button type="button" class="chat-icon-btn" aria-label="Anexar arquivo"><i class="fa-solid fa-paperclip"></i></button>
-                        <input type="text" placeholder="Digite sua mensagem...">
-                        <button type="button" class="chat-send" aria-label="Enviar"><i class="fa-regular fa-paper-plane"></i></button>
-                    </div>
+                        <input type="text" id="chat-pergunta" placeholder="Digite sua mensagem..." required autocomplete="off">
+                        <button type="submit" class="chat-send" id="chat-enviar" aria-label="Enviar"><i class="fa-regular fa-paper-plane"></i></button>
+                    </form>
                 </div>
+                
                 <aside class="chat-side">
                     <p class="chat-side-eyebrow">atendimento</p>
                     <h3>Estamos por aqui</h3>
@@ -442,29 +463,23 @@
         </section>
 
         <!-- ABA: LOGIN -->
-                <!-- ABA: LOGIN -->
-                <section id="login" class="tab-content">
-                    <div class="login-bg" style="display: flex; justify-content: center; align-items: center; height: 100%; min-height: 90vh; border-radius: 24px;">
-                        <!-- AUMENTE O max-width ABAIXO (ex: 500px ou 600px) -->
-                        <div class="settings-card" style="width: 100%; max-width: 500px; padding: 50px; text-align: center;">
-                            <h2 style="font-size: 32px; color: #B8335F; margin-bottom: 25px;">LOGIN</h2>
-                            
-                            <div class="field" style="margin-bottom: 20px; text-align: left;">
-                                <label for="login-user">Usuário</label>
-                                <input type="text" id="login-user" placeholder="Seu usuário" style="padding: 15px;">
-                            </div>
-                            
-                            <div class="field" style="margin-bottom: 25px; text-align: left;">
-                                <label for="login-pass">Senha</label>
-                                <input type="password" id="login-pass" placeholder="Sua senha" style="padding: 15px;">
-                            </div>
-                            
-                            <button class="btn-save" style="width: 100%; padding: 15px; font-size: 16px; margin-bottom: 20px;" onclick="alert('Login simulado com sucesso!')">ENTRAR</button>
-                            <a href="#" style="color: #B8335F; font-size: 15px; text-decoration: none;">Esqueci a senha?</a>
-                        </div>
+        <section id="login" class="tab-content">
+            <div class="login-bg" style="display: flex; justify-content: center; align-items: center; height: 100%; min-height: 90vh; border-radius: 24px;">
+                <div class="settings-card" style="width: 100%; max-width: 500px; padding: 50px; text-align: center;">
+                    <h2 style="font-size: 32px; color: #B8335F; margin-bottom: 25px;">LOGIN</h2>
+                    
+                    <div class="field" style="margin-bottom: 20px; text-align: left;">
+                        <label for="login-user">Usuário</label>
+                        <input type="text" id="login-user" placeholder="Seu usuário" style="padding: 15px;">
                     </div>
-                </section>
-        
-    </main>
-</body>
-</html>
+                    
+                    <div class="field" style="margin-bottom: 25px; text-align: left;">
+                        <label for="login-pass">Senha</label>
+                        <input type="password" id="login-pass" placeholder="Sua senha" style="padding: 15px;">
+                    </div>
+                    
+                    <button class="btn-save" style="width: 100%; padding: 15px; font-size: 16px; margin-bottom: 20px;" onclick="alert('Login simulado com sucesso!')">ENTRAR</button>
+                    <a href="#" style="color: #B8335F; font-size: 15px; text-decoration: none;">Esqueci a senha?</a>
+                </div>
+            </div>
+        </section
