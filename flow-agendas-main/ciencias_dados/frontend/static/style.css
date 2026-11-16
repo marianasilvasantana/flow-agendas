@@ -1,0 +1,198 @@
+/* =========================================
+   1. VARIÁVEIS DE COR E RESET
+   ========================================= */
+   :root {
+    --marinho: #1f3a5f;
+    --branco: #ffffff;
+    --texto-suave: #666666;
+    --fundo: #f4f6f9;
+    --borda: #dddddd;
+    :root {
+        --marinho: #1f3a5f;
+        --branco: #ffffff;
+        --texto-suave: #666666;
+        --fundo: #f4f6f9;
+        --borda: #dddddd;
+        /* Adicione estas duas: */
+        --azul-claro: #e6f0fa; 
+        --laranja: #f28c28; 
+      }
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--fundo);
+    color: var(--marinho);
+    line-height: 1.5;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* =========================================
+     2. CABEÇALHO E TÍTULOS
+     ========================================= */
+  .cabecalho {
+    background-color: var(--marinho);
+    color: var(--branco);
+    padding: 20px 0;
+    margin-bottom: 30px;
+  }
+  
+  .cabecalho .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .marca {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .subtitulo {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .titulo-pagina {
+    margin-bottom: 30px;
+  }
+  
+  .titulo-pagina h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .titulo-pagina a {
+    color: var(--marinho);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .titulo-pagina a:hover {
+    text-decoration: underline;
+  }
+  
+  /* =========================================
+     3. PAINÉIS (Cards do Dashboard e do Chat)
+     ========================================= */
+  .painel {
+    background-color: var(--branco);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  
+  .painel-titulo {
+    padding: 20px;
+    border-bottom: 1px solid var(--borda);
+  }
+  
+  .painel-titulo h2 {
+    font-size: 1.25rem;
+    color: var(--marinho);
+  }
+  
+  /* =========================================
+     4. BOTÕES
+     ========================================= */
+  .botao {
+    display: inline-block;
+    padding: 10px 20px;
+    font: inherit;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .botao-principal {
+    background-color: var(--marinho);
+    color: var(--branco);
+  }
+  
+  .botao-principal:hover {
+    background-color: #142740;
+  }
+  
+  /* =========================================
+     5. ESTILOS DO CHAT (Bloco 1)
+     ========================================= */
+  .chat-corpo {
+    padding: clamp(16px, 4vw, 28px);
+  }
+  
+  .chat-form {
+    display: grid;
+    gap: 10px;
+  }
+  
+  .chat-form label {
+    font-weight: bold;
+  }
+  
+  .chat-form select {
+    width: 100%;
+    padding: 12px;
+    font: inherit;
+    color: var(--marinho);
+    background: var(--branco);
+    border: 1px solid var(--texto-suave);
+    border-radius: 8px;
+  }
+  
+  .chat-form button {
+    justify-self: start;
+  }
+  
+  .chat-form button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+  
+  .chat-form :focus-visible {
+    outline: 3px solid var(--marinho);
+    outline-offset: 3px;
+  }
+  /* =========================================
+   6. ESTILOS DO CHAT (Bloco 2 - Resposta e Aviso)
+   ========================================= */
+#chat-status:not(:empty) {
+    margin-top: 12px;
+  }
+  .chat-resposta {
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--azul-claro);
+    border-left: 4px solid var(--laranja);
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+  }
+  .chat-resposta h3 {
+    margin: 12px 0 4px;
+    font-size: 1rem;
+  }
+  .chat-resposta ul {
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+  .chat-aviso {
+    margin-top: 10px;
+    color: var(--marinho);
+    font-weight: bold;
+  }
